@@ -16,8 +16,8 @@ web:
     homepage: "{{package.homepage}}"
     repo: "{{package.repository.url}}"
     license: "{{package.extra.licenseUrl}}"
-    logo: "https://raw.githubusercontent.com/pigeonposse/{{package.name}}/main/docs/public/logo.png"
-    banner: "https://raw.githubusercontent.com/pigeonposse/{{package.name}}/main/docs/public/banner.png"
+    logo: "https://raw.githubusercontent.com/pigeonposse/clippo/main/docs/public/logo.png"
+    banner: "https://raw.githubusercontent.com/pigeonposse/clippo/main/docs/public/banner.png"
     status: "active"
 
 ###############################################################################
