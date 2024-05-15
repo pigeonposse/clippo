@@ -1,0 +1,29 @@
+{
+	"name": "@clippo/docs",
+	"version": "1.2.7",
+	"private": true,
+	"description": "Documentation for bepp",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pigeonposse/bepp",
+		"directory": "packages/docs"
+	},
+	"type": "module",
+	"scripts": {
+		"build": "pnpm docs:copy && vitepress build src --force && pnpm docs:rm",
+		"dev": "vitepress dev src",
+		"docs:copy": "node src/copy-docs.js",
+		"docs:plugins": "typedoc",
+		"docs:rm": "node src/copy-docs.js --rm-dest",
+		"preview": "vitepress preview src"
+	},
+	"dependencies": {
+		"markdown-it-task-lists": "2.1.1"
+	},
+	"devDependencies": {
+		"@clippo/config": "workspace:*",
+		"medium-zoom": "^1.1.0",
+		"vitepress": "1.0.0-rc.24",
+		"vue": "3.3.7"
+	}
+}

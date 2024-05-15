@@ -1,0 +1,10 @@
+{
+	"usage": "Uso:",
+	"options": "Opciones:",
+	"commands": "Comandos:",
+	"docs": "Documentación:",
+	"versionDesc": "Mostrar número de versión",
+	"timeDesc": "Mostrar tiempo de espera",
+	"helpDesc": "Mostrar Ayuda",
+	"verboseDesc": "Ejecutar con registro detallado"
+}

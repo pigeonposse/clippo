@@ -1,0 +1,14 @@
+{
+	"extends": "./node_modules/@clippo/config/tsconfig.json",
+	"include": [
+		"./src/",
+		"../../package.json",
+		"./package.json"
+	],
+	"compilerOptions": {
+		"removeComments": false,
+		"esModuleInterop": true,
+		"outDir": "./dist",
+		"baseUrl": "./src"
+	}
+}

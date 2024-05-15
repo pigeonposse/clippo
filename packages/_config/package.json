@@ -1,0 +1,13 @@
+{
+	"private": true,
+	"name": "@clippo/config",
+	"version": "0.0.1",
+	"description": "Configuration files for monorepo",
+	"type": "module",
+	"exports": {
+		"./tsconfig.json": "./tsconfig.json",
+		"./tsconfig.utils.json": "./tsconfig.utils.json",
+		"./vite.config.utils.js": "./vite.config.utils.js",
+		"./vitest.config.utils.js": "./vitest.config.utils.js"
+	}
+}

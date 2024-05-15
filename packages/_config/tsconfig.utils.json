@@ -1,0 +1,11 @@
+{
+	"extends": "./tsconfig.json",
+	"include": [
+		"../../package.json",
+		"./package.json"
+	],
+	"compilerOptions": {
+		"removeComments": false,
+		"declaration": true,
+	}
+}

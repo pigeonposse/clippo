@@ -1,0 +1,62 @@
+{
+	// "$schema": "https://typedoc.org/schema.json",
+	"compilerOptions": {
+		"target": "ES2019",
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		/**
+		 * Options.
+		 */
+		"strict": true,
+		"alwaysStrict": true,
+		"strictPropertyInitialization": true,
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"sourceMap": true, 
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"skipLibCheck": true,
+		// "allowImportingTsExtensions": false,
+		// "baseUrl": ".",
+		/**
+		 * Typecheck JS in `.svelte` and `.js` files by default.
+		 * Disable checkJs if you'd like to use dynamic types in JS.
+		 * Note that setting allowJs false does not prevent the use
+		 * of JS in `.svelte` files.
+		 */
+		"allowJs": true,
+		"checkJs": true,
+		"noEmit": true,
+		"isolatedModules": true,
+		"importHelpers": true,
+		"removeComments": true,
+		"allowSyntheticDefaultImports": true
+	},
+	"include": [
+		"./src/*.vue",
+		"./src/",
+		"../**/dist/main.d.ts"
+	],
+	"typedocOptions": {
+		"hideBreadcrumbs": true,
+		"hideInPageTOC": true,
+		"disableSources": true,
+		"plugin": [
+			"typedoc-plugin-markdown"
+		],
+		"entryPoints": [
+			"../fs/dist/main.d.ts",
+			"../i18n/dist/main.d.ts",
+			"../logger/dist/main.d.ts",
+			"../media/dist/main.d.ts",
+			"../process/dist/main.d.ts",
+			"../prompts/dist/main.d.ts",
+			"../qr/dist/main.d.ts",
+			"../styles/dist/main.d.ts",
+			"../updater/dist/main.d.ts"
+		],
+		"out": "../../docs/plugins"
+	}
+}
+  

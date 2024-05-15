@@ -1,0 +1,48 @@
+{
+	"name": "@clippo/prompts",
+	"version": "0.0.1",
+	"description": "Package your extension for multiple browsers quickly and easily",
+	"type": "module",
+	"files": [
+		"dist"
+	],
+	"module": "dist/main.js",
+	"main": "dist/main.js",
+	"types": "dist/main.d.ts",
+	"exports": {
+		"./types": "./dist/main.d.ts",
+		".": "./dist/main.js"
+	},
+	"scripts": {
+		"build": "vite build",
+		"dev": "pnpm build && pnpm preview",
+		"lint": "eslint . --ext .ts",
+		"preview": "node dist/main.js $@",
+		"test": "vitest run",
+		"watch": "vitest watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pigeonposse/clippo",
+		"directory": "packages/prompts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "GPL-3.0",
+	"homepage": "https://clippo.pigeonposse.com/",
+	"devDependencies": {
+		"@clippo/config": "workspace:*"
+	},
+	"dependencies": {
+		"@clack/core": "0.3.4",
+		"@clack/prompts": "0.7.0",
+		"enquirer": "2.4.1"
+	},
+	"peerDependencies": {
+		"@clippo/media": "workspace:*",
+		"@clippo/qr": "workspace:*",
+		"@clippo/styles": "workspace:*"
+	}
+}

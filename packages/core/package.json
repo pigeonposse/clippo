@@ -1,0 +1,54 @@
+{
+	"name": "@clippo/core",
+	"version": "0.0.1",
+	"description": "Fast and modern logger ready to use. Print to console and export to JSON if desired. Built for CLIPPO and designed for CLI and backend tools",
+	"type": "module",
+	"files": [
+		"dist"
+	],
+	"module": "dist/main.js",
+	"main": "dist/main.js",
+	"types": "dist/main.d.ts",
+	"exports": {
+		"./types": "./dist/main.d.ts",
+		".": "./dist/main.js"
+	},
+	"scripts": {
+		"build": "vite build",
+		"dev": "pnpm build && pnpm preview",
+		"example": "node examples/main.js $@",
+		"lint": "eslint . --ext .ts",
+		"preview": "node dist/main.js $@",
+		"test": "vitest run",
+		"watch": "vitest watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pigeonposse/clippo",
+		"directory": "packages/core"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "GPL-3.0",
+	"homepage": "https://clippo.pigeonposse.com/",
+	"devDependencies": {
+		"@clippo/config": "workspace:*",
+		"@types/yargs": "17.0.32"
+	},
+	"dependencies": {
+		"@clippo/fs": "workspace:*",
+		"@clippo/i18n": "workspace:*",
+		"@clippo/logger": "workspace:*",
+		"@clippo/media": "workspace:*",
+		"@clippo/process": "workspace:*",
+		"@clippo/prompts": "workspace:*",
+		"@clippo/qr": "workspace:*",
+		"@clippo/styles": "workspace:*",
+		"@clippo/updater": "workspace:*",
+		"deepmerge": "^4.3.1",
+		"handlebars": "^4.7.8",
+		"yargs": "17.7.2"
+	}
+}

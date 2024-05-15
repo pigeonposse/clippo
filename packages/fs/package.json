@@ -1,0 +1,48 @@
+{
+	"name": "@clippo/fs",
+	"version": "0.0.1",
+	"description": "File system functions for utilities. Created for CLIPPO, designed for cli and backend libraries",
+	"type": "module",
+	"files": [
+		"dist"
+	],
+	"module": "dist/main.js",
+	"main": "dist/main.js",
+	"types": "dist/main.d.ts",
+	"exports": {
+		"./types": "./dist/main.d.ts",
+		".": "./dist/main.js"
+	},
+	"scripts": {
+		"bench": "node bench/main.js $@",
+		"build": "vite build",
+		"dev": "pnpm build && pnpm preview",
+		"example": "node examples/main.js $@",
+		"lint": "eslint . --ext .ts",
+		"preview": "node dist/main.js $@",
+		"test": "vitest run",
+		"watch": "vitest watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pigeonposse/clippo",
+		"directory": "packages/fs"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "GPL-3.0",
+	"homepage": "https://clippo.pigeonposse.com/",
+	"devDependencies": {
+		"@clippo/config": "workspace:*",
+		"@types/js-yaml": "4.0.9",
+		"@types/node-localstorage": "1.3.3"
+	},
+	"dependencies": {
+		"js-yaml": "4.1.0",
+		"node-localstorage": "3.0.5",
+		"open": "10.1.0",
+		"toml": "3.0.0"
+	}
+}

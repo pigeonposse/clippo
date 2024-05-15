@@ -1,0 +1,48 @@
+{
+	"name": "@clippo/utils",
+	"version": "0.0.1",
+	"description": "Package your extension for multiple browsers quickly and easily",
+	"type": "module",
+	"files": [
+		"dist"
+	],
+	"module": "dist/main.js",
+	"main": "dist/main.js",
+	"types": "dist/main.d.ts",
+	"exports": {
+		"./types": "./dist/main.d.ts",
+		".": "./dist/main.js"
+	},
+	"scripts": {
+		"build": "vite build",
+		"dev": "pnpm build && pnpm preview",
+		"example": "node examples/main.js $@",
+		"lint": "eslint . --ext .ts",
+		"test": "vitest run",
+		"watch": "vitest watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pigeonposse/clippo",
+		"directory": "packages/process"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "GPL-3.0",
+	"homepage": "https://clippo.pigeonposse.com/",
+	"devDependencies": {
+		"@clippo/config": "workspace:*"
+	},
+	"dependencies": {
+		"@clippo/i18n": "workspace:*",
+		"@clippo/logger": "workspace:*",
+		"@clippo/media": "workspace:*",
+		"@clippo/process": "workspace:*",
+		"@clippo/prompts": "workspace:*",
+		"@clippo/qr": "workspace:*",
+		"@clippo/styles": "workspace:*",
+		"@clippo/updater": "workspace:*"
+	}
+}
