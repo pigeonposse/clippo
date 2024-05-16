@@ -18,6 +18,6 @@ web:
     license: "{{package.extra.licenseUrl}}"
     logo: "https://raw.githubusercontent.com/pigeonposse/clippo/main/docs/public/logo.png"
     banner: "https://raw.githubusercontent.com/pigeonposse/clippo/main/docs/public/banner.png"
-    status: "active"
+    status: "coming-soon"
 
 ###############################################################################
