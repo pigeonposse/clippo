@@ -6,11 +6,9 @@ web:
   
   - id: "clippo"
     name: "clippo"
-    type: "library"
-    subtypes:
-      - Bin
-      - CLI
-      - Node
+    type: 
+      - library
+      - cli
     version: "{{package.version}}"
     description: "{{package.description}}"
     homepage: "{{package.homepage}}"
