@@ -4,10 +4,11 @@
  * @description File for set logger functions.
  */
 
-import pino        from 'pino'
-import pretty      from 'pino-pretty'
+import pino     from 'pino'
+import pretty   from 'pino-pretty'
+import { time } from 'process/time'
+
 import { spinner } from '../print/main'
-import { time }    from 'process/time'
 
 /**
  * Class for logger.
@@ -19,9 +20,7 @@ import { time }    from 'process/time'
 export class Logger {
 
 	log = pino(
-		{
-			level : 'debug',
-		}, 
+		{ level: 'debug' }, 
 		pretty( {
 			colorize : true,
 			ignore   : 'pid,hostname,time',
@@ -36,12 +35,16 @@ export class Logger {
 	 *
 	 * @param   {string}  prefix - Prefix for spinner instance.
 	 * @returns {Spinner}        - Returns Spinner type.
+	 * @example
+	 *
 	 */
 	spinner( prefix: string ){
 
 		return spinner( {
 			prefix,
-			on : this.verbose ? ( { text, type } ) => {
+			on : this.verbose ? ( {
+				text, type, 
+			} ) => {
 
 				if ( this.verbose && type == 'failed' ) 
 					this.error( text )
@@ -57,6 +60,8 @@ export class Logger {
 	 * Log data as debug if verbosity is enabled.
 	 *
 	 * @param {string | object} data - Data to log.
+	 * @example
+	 *
 	 */
 	debug( data: string | object ){
 
@@ -68,6 +73,8 @@ export class Logger {
 	 * Log data as info.
 	 *
 	 * @param {string | object} data - Data to log.
+	 * @example
+	 *
 	 */
 	info( data: string | object ){
 
@@ -80,6 +87,8 @@ export class Logger {
 	 *
 	 * @param {string | object} data  - Data to log.
 	 * @param {boolean}         force - Force print regardless of verbosity.
+	 * @example
+	 *
 	 */
 	warn( data: string | object, force: boolean = false ){
 
@@ -91,6 +100,8 @@ export class Logger {
 	 * Log data as error.
 	 *
 	 * @param {string | object} data - Data to log.
+	 * @example
+	 *
 	 */
 	error( data: string | object ){
 
@@ -102,6 +113,8 @@ export class Logger {
 	 * Log data as fatal error and exit process.
 	 *
 	 * @param {string | object} data - Data to log.
+	 * @example
+	 *
 	 */
 	fatal( data: string | object ){
    

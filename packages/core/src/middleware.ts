@@ -1,18 +1,28 @@
 
-import { configMiddleware }      from './config'
-import { helpMiddleware }        from './help/main'
+import { configMiddleware }  from './config'
+import { helpMiddleware }    from './help/main'
+import { versionMiddleware } from './version'
+
 import type { ClippoMiddleware } from './types'
-import { versionMiddleware }     from './version'
 
-export const middleware = async ( { opts, cmds, name, utils, version, params }: ClippoMiddleware ) => {
+export const middleware = async ( {
+	opts, cmds, name, utils, version, params, 
+}: ClippoMiddleware ) => {
 
-	const { log, updater } = utils
+	const {
+		log, updater, 
+	} = utils
 
 	/**
 	 * CONFIG.
 	 */
 	opts = await configMiddleware( {
-		opts, cmds, name, version, utils, params, 
+		opts,
+		cmds,
+		name,
+		version,
+		utils,
+		params, 
 	} )
 
 	/**
@@ -35,14 +45,24 @@ export const middleware = async ( { opts, cmds, name, utils, version, params }: 
 	 */
 
 	await helpMiddleware( {
-		opts, cmds, name, version, utils, params, 
+		opts,
+		cmds,
+		name,
+		version,
+		utils,
+		params, 
 	} )
 
 	/**
 	 * VERSION SECTION.
 	 */
 	await versionMiddleware( {
-		opts, cmds, name, version, utils, params, 
+		opts,
+		cmds,
+		name,
+		version,
+		utils,
+		params, 
 	} )
 	
 	return opts

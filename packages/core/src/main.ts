@@ -7,30 +7,30 @@
  * @todo Fix output in verbose. One line is removed.
  * @todo Create extends function for add pluggins or themes.
  */
+import { Fs }             from '@clippo/fs'
+import i18n               from '@clippo/i18n'
+import { Logger }         from '@clippo/logger'
+import * as clippoProcess from '@clippo/process'
+import * as styles        from '@clippo/styles'
+import Handlebars         from 'handlebars'
 import yargs              from 'yargs'
 import { hideBin }        from 'yargs/helpers'
-import * as styles        from '@clippo/styles'
-import { Logger }         from '@clippo/logger'
-import { Fs }             from '@clippo/fs'
-import * as clippoProcess from '@clippo/process'
-import i18n               from '@clippo/i18n'
-import Handlebars         from 'handlebars'
 
+import { mergeConfig } from './extends'
+import { middleware }  from './middleware'
 import {
-	optType, optionTypes, 
+	optType,
+	optionTypes, 
 } from './types'
+import { updater } from './updater'
+
 import type {
 	Option, 
 	ClippoArgs,
 	ClippoReturnedType,
 } from './types'
-import { mergeConfig } from './extends'
-import { updater }     from './updater'
-import { middleware }  from './middleware'
 
-const clippoLogger = new Logger( {
-	name : 'CLIPPO',
-} )
+const clippoLogger = new Logger( { name: 'CLIPPO' } )
 
 /**
  * Clippo.
@@ -69,24 +69,22 @@ export default async function clippo( args: ClippoArgs ): Promise<ClippoReturned
 
 		const replaceValues = <T extends Record<string, unknown>>( template:T, data: Record<string, unknown> ): T => {
 
-			const result: T = {
-				...template, 
-			}
+			const result: T = { ...template }
 		
 			for ( const key in result ) {
 
 				if ( Object.prototype.hasOwnProperty.call( result, key ) ) {
 
-					const value = result[key]
+					const value = result[ key ]
 					if ( typeof value === 'object' && !Array.isArray( value ) ) {
 
 						// @ts-ignore
-						result[key] = replaceValues( value, data )
+						result[ key ] = replaceValues( value, data )
 					
 					} else if ( typeof value === 'string' ) {
 
 						// @ts-ignore
-						result[key] = Handlebars.compile( value )( data )
+						result[ key ] = Handlebars.compile( value )( data )
 					
 					}
 				
@@ -98,9 +96,7 @@ export default async function clippo( args: ClippoArgs ): Promise<ClippoReturned
 		
 		}
 
-		params = replaceValues( params, {
-			name,
-		} )
+		params = replaceValues( params, { name } )
 
 		const utils = {
 			showHelp    : () => {},
@@ -144,9 +140,7 @@ export default async function clippo( args: ClippoArgs ): Promise<ClippoReturned
 				}else{
 
 					if( !params.config?.customTypes ) throw Error
-					Object.entries( params.config?.customTypes ).filter( ( [
-						k,v, 
-					] ) => {
+					Object.entries( params.config?.customTypes ).filter( ( [ k, v ] ) => {
 
 						if( k === opt.type ){
 
@@ -178,9 +172,9 @@ export default async function clippo( args: ClippoArgs ): Promise<ClippoReturned
 
 			for ( const key in opts ) {
 
-				const opt = opts[key]
+				const opt = opts[ key ]
 	
-				transformedOptions[key] = {
+				transformedOptions[ key ] = {
 					desc         : opt.desc,
 					alias        : opt.alias,
 					type         : getType( opt.type ),
@@ -189,8 +183,8 @@ export default async function clippo( args: ClippoArgs ): Promise<ClippoReturned
 					coerce       : ( value: typeof opt.default ) => validateAndtransform( value, opt, key ),
 				}
 		
-				if( 'default' in opt ) transformedOptions[key].default = opt.default
-				if( 'choices' in opt ) transformedOptions[key].choices = opt.choices
+				if( 'default' in opt ) transformedOptions[ key ].default = opt.default
+				if( 'choices' in opt ) transformedOptions[ key ].choices = opt.choices
 		
 			}
 	
@@ -199,11 +193,9 @@ export default async function clippo( args: ClippoArgs ): Promise<ClippoReturned
 		} 
 		const getCmdKey      = ( key: string, positionals: ClippoArgs['positionals'] ) => {
 
-			return !positionals ? 
-				key : 
-				key + ' ' + Object.entries( positionals ).map( ( [
-					k, v,
-				] ) => v.required ? `<${k}>` : `[${k}]` ).join( ' ' )
+			return !positionals 
+				? key 
+				: key + ' ' + Object.entries( positionals ).map( ( [ k, v ] ) => v.required ? `<${k}>` : `[${k}]` ).join( ' ' )
 		
 		}
 		const addPositionals = ( argv: typeof yargs, positionals: NonNullable<ClippoArgs['positionals']> ) => {
@@ -212,7 +204,7 @@ export default async function clippo( args: ClippoArgs ): Promise<ClippoReturned
 			
 			for ( const key in positionals ) {
 
-				const positional = positionals[key]
+				const positional = positionals[ key ]
 				
 				const opts: Parameters<typeof argv.positional>[1] = {
 					desc         : positional.desc,
@@ -235,7 +227,7 @@ export default async function clippo( args: ClippoArgs ): Promise<ClippoReturned
 
 			for ( const key in cmds ) {
 
-				const cmd = cmds[key]
+				const cmd = cmds[ key ]
 
 				argv.command( 
 					getCmdKey( key, cmd.positionals ),
@@ -274,59 +266,61 @@ export default async function clippo( args: ClippoArgs ): Promise<ClippoReturned
 		if( !params.opts ) params.opts = {}
 
 		if ( defaultOpts?.includes( optType.verbose.name ) )
-			params.opts[optType.verbose.name] = {
+			params.opts[ optType.verbose.name ] = {
 				alias : optType.verbose.aliases,
 				type  : optionTypes.boolean,
 				desc  : _( 'general:verboseDesc' ),
 			} 
 
 		if ( defaultOpts?.includes( optType.time.name ) )
-			params.opts[optType.time.name] = {
+			params.opts[ optType.time.name ] = {
 				alias : optType.time.aliases,
 				type  : optionTypes.boolean,
 				desc  : _( 'general:timeDesc' ),
 			}
 
 		if ( defaultOpts?.includes( optType.config.name ) )
-			params.opts[optType.config.name] = {
+			params.opts[ optType.config.name ] = {
 				alias : optType.config.aliases,
 				type  : optionTypes.string,
-				desc  : _( 'general:configDesc', {
-					name,
-				} ),
+				desc  : _( 'general:configDesc', { name } ),
 			} 
 
-		params.opts[optType.version.name] = {
+		params.opts[ optType.version.name ] = {
 			alias : optType.version.aliases,
 			type  : optionTypes.boolean,
 			desc  : _( 'general:versionDesc' ),
 		}
 
-		params.opts[optType.help.name] = {
+		params.opts[ optType.help.name ] = {
 			alias : optType.help.aliases,
 			type  : optionTypes.boolean,
 			desc  : _( 'general:helpDesc' ),
 		} 
 
-		const globalOpts = [
-			...Object.keys( params.opts ), 
-			optType.help.name,
-		]
+		const globalOpts = [ ...Object.keys( params.opts ), optType.help.name ]
 
 		argv.options( formatOpts( params.opts ) )
 			.help( false )
-			.alias( optType.help.aliases[0], optType.help.name )
+			.alias( optType.help.aliases[ 0 ], optType.help.name )
 			.group( globalOpts, _( 'general:globalOptions' ) )
 			.showHelpOnFail( false )
 			.fail( msg => log.fatal( msg ) )
 			.strict()
 			.parse()
 
-		const { $0, _: cmds, ...opts } = await argv.argv
-		const options                  = await middleware( {
-			name, version, cmds, opts, params, utils,
+		const {
+			$0, _: cmds, ...opts 
+		} = await argv.argv
+		const options                 = await middleware( {
+			name,
+			version,
+			cmds,
+			opts,
+			params,
+			utils,
 		} )
-		const res: ClippoReturnedType  = {
+		const res: ClippoReturnedType = {
 			name : $0, 
 			version, 
 			cmds, 

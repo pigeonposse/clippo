@@ -1,10 +1,14 @@
 
-import { updater as updaterFunct }  from '@clippo/updater'
+import { updater as updaterFunct } from '@clippo/updater'
+
 import type {
-	UpdaterParams, UpdaterReturned, 
+	UpdaterParams,
+	UpdaterReturned, 
 } from './types'
 
-export const updater = async ( { config, name, version }: UpdaterParams ): UpdaterReturned => {
+export const updater = async ( {
+	config, name, version, 
+}: UpdaterParams ): UpdaterReturned => {
 
 	if( config === false ) return {
 		notify     : undefined,
@@ -12,7 +16,8 @@ export const updater = async ( { config, name, version }: UpdaterParams ): Updat
 	}
 
 	const opts = await updaterFunct( {
-		name, version, 
+		name,
+		version, 
 		...( typeof config === 'object' ? config : {} ),
 	} )
 

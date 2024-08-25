@@ -6,6 +6,9 @@ export const time = () => {
 	return { 
 		/**
 		 * Start time measurement.
+		 *
+		 * @example
+		 *
 		 */
 		start : () => {
 
@@ -14,6 +17,9 @@ export const time = () => {
 		},
 		/**
 		 * Stop time measurement.
+		 *
+		 * @example
+		 *
 		 */
 		stop : () => {
 
@@ -24,6 +30,8 @@ export const time = () => {
 		 * Get result of time measurement.
 		 *
 		 * @returns {(number|false)} - Elapsed time or false if not available.
+		 * @example
+		 *
 		 */
 		getResult : () => {
 

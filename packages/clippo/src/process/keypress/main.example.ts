@@ -1,18 +1,13 @@
-import { color }  from 'print/color'
+import { color } from 'print/color'
+
 import onKeypress from './main'
 
 const main = async () =>{
 	
 	const readline = onKeypress( [
-		[
-			'y',
-		],
-		[
-			'ctrl', 'y',
-		],
-		[
-			'ctrl', 'u',
-		],
+		[ 'y' ],
+		[ 'ctrl', 'y' ],
+		[ 'ctrl', 'u' ],
 	], ( keypress, stop ) => {
 
 		if( keypress.includes( 'y' ) ) console.log( '\n break...' )

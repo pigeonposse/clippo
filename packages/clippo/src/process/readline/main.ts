@@ -1,5 +1,6 @@
 import {
-	createInterface, clearScreenDown,
+	createInterface,
+	clearScreenDown,
 	cursorTo, 
 } from 'node:readline'
 
@@ -7,6 +8,8 @@ import {
  * Function to capture keyboard input and handle it according to the specified keys.
  *
  * @returns {object} - Object containing stop function.
+ * @example
+ *
  */
 export default function readline( ) {
 
@@ -23,7 +26,7 @@ export default function readline( ) {
 
 	const clearScreen = () => {
 
-		cursorTo( process.stdout, 0,0 )
+		cursorTo( process.stdout, 0, 0 )
 		clearScreenDown( process.stdout )
 	
 	}
@@ -66,6 +69,9 @@ export default function readline( ) {
 	
 	/**
 	 * Method to start capturing keyboard events.
+	 *
+	 * @example
+	 *
 	 */
 	const start = () => {
 
@@ -82,6 +88,9 @@ export default function readline( ) {
 
 	/**
 	 * Method to stop capturing keyboard events and restore terminal settings.
+	 *
+	 * @example
+	 *
 	 */
 	const stop = () => {
 
@@ -109,6 +118,8 @@ export default function readline( ) {
 	 *
 	 * @param {any}    _          - Unused parameter.
 	 * @param {object} pressedKey - Object containing information about the pressed key.
+	 * @example
+	 *
 	 */
 	// @ts-ignore
 	const keypressListener = ( _, pressedKey ) => {
@@ -151,7 +162,7 @@ export default function readline( ) {
 		for ( let i = 0; i < handlerKeypress.length; i++ ) {
 
 			// @ts-ignore
-			handlerKeypress[i]( keypress, utils ) // Llama a la función en la posición 'i' del array
+			handlerKeypress[ i ]( keypress, utils ) // Llama a la función en la posición 'i' del array
 		
 		}
 

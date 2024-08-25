@@ -1,6 +1,5 @@
 
 // import clippo  from '@clippo/core'
-import clippo  from '../src/main'
 import {
 	description, 
 	version, 
@@ -8,49 +7,41 @@ import {
 	homepage, 
 	repository,
 } from '../../../package.json'
+import clippo from '../src/main'
 
 try {
 
 	const cli = await clippo( {
 		name,
 		version,
-		desc : description,
-		config: {
-			i18n: {
-				locales: {
-					en: {
-						clippo: {
-							urlDesc: 'write a url'
-						}
-					},
-					es: {
-						clippo: {
-							urlDesc: 'Escribe una url'
-						}
-					}
-				}
-			}
+		desc   : description,
+		config : {
+			i18n : {
+				locales : {
+					en : { clippo: { urlDesc: 'write a url' } },
+					es : { clippo: { urlDesc: 'Escribe una url' } },
+				},
+			},
 		},
 		help : {
 			docsUrl : homepage,
 			title   : {
 				colors : [
-					'red', 'green', 'blue',
+					'red',
+					'green',
+					'blue',
 				],
 				font  : '3-D',
 				value : 'clippo',
 			},
-			usage: '{{name}} <command/s> [flag/s]',
-			examples : [
-				{
-					desc  : 'Open repo',
-					value : 'clippo open repo',
-				},
-				{
-					desc  : 'Write number 3',
-					value : 'clippo types --number 3',
-				}, 
-			],
+			usage    : '{{name}} <command/s> [flag/s]',
+			examples : [ {
+				desc  : 'Open repo',
+				value : 'clippo open repo',
+			}, {
+				desc  : 'Write number 3',
+				value : 'clippo types --number 3',
+			} ],
 		},
 		positionals : {
 			source : { 
@@ -75,16 +66,17 @@ try {
 						type    : 'choices',
 						desc    : 'print number',
 						choices : [
-							1, 2, 3, 4,
+							1,
+							2,
+							3,
+							4,
 						],
 						default : 4,
 					},
 					array : {
 						type    : 'array',
 						desc    : 'print array',
-						default : [
-							'array', 
-						],
+						default : [ 'array' ],
 					},
 				},
 				// opts : [
@@ -118,25 +110,15 @@ try {
 				// 	},
 				// ],
 			},
-			info : {
-				desc : 'Set clippo information',
-			},
+			info : { desc: 'Set clippo information' },
 			open : {
 				desc : 'Open clippo urls',
 				cmds : {
-					docs : {
-						desc : 'Open clippo docs web',
-					},
-					repo : {
-						desc : 'Open clippo repository',
-					},
+					docs   : { desc: 'Open clippo docs web' },
+					repo   : { desc: 'Open clippo repository' },
 					custom : {
-						desc : 'Open a custom url',
-						cmds : {
-							ss : {
-								desc : 'Open clippo repository',
-							},
-						},
+						desc        : 'Open a custom url',
+						cmds        : { ss: { desc: 'Open clippo repository' } },
 						positionals : {
 							firsturl : {
 								desc : 'set the url to open',
@@ -151,22 +133,18 @@ try {
 				},
 				opts : {
 					firefox : {
-						alias : [
-							'f', 
-						],
-						type : 'boolean',
-						desc : 'Open url in firefox',
+						alias : [ 'f' ],
+						type  : 'boolean',
+						desc  : 'Open url in firefox',
 					},
 				},
 			},
 		},
 		opts : {
 			yes : {
-				alias : [
-					'y',
-				],
-				type : 'boolean',
-				desc : 'Say yes to all',
+				alias : [ 'y' ],
+				type  : 'boolean',
+				desc  : 'Say yes to all',
 			},
 		},
 		// defaultOpts : [
@@ -182,16 +160,16 @@ try {
 	
 	// console.log( cli )
 
-	const { cmds, opts, utils } = cli
-	const { log, showHelp, fs } = utils
+	const {
+		cmds, opts, utils, 
+	} = cli
+	const {
+		log, showHelp, fs, 
+	} = utils
 	// console.log( cmds, opts )
 	if( cmds.includes( 'open' ) ) {
 
-		const browser = 'firefox' in opts ? {
-			app : {
-				name : 'firefox',
-			},
-		} : undefined
+		const browser = 'firefox' in opts ? { app: { name: 'firefox' } } : undefined
 
 		if( cmds.includes( 'docs' ) )
 			fs.open( homepage, browser )

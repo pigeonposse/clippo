@@ -8,26 +8,31 @@
  * @todo Create extends function for add pluggins or themes.
  */
 
-import type {
-	ArgumentsCamelCase, InferredOptionTypes, 
-} from 'yargs'
-import yargs              from 'yargs'
-import { hideBin }        from 'yargs/helpers'
-import updateNotifier     from 'update-notifier'
-import * as print         from '../print/main'
-import { Logger }         from '../logger/main'
-import { Fs }             from '../fs/main'
-import { Process }        from '../process/main'
-import { Locales }        from './locales'
+import updateNotifier from 'update-notifier'
+import yargs          from 'yargs'
+import { hideBin }    from 'yargs/helpers'
+
+import { Locales } from './locales'
 import {
 	defaultCustomOpts,
-	optType, optionTypes, 
+	optType,
+	optionTypes, 
 } from './types'
+import { Fs }      from '../fs/main'
+import { Logger }  from '../logger/main'
+import * as print  from '../print/main'
+import { Process } from '../process/main'
+
 import type {
-	Option, CliArgs,
+	Option,
+	CliArgs,
 	Command,
 	CliHookParams,
 } from './types'
+import type {
+	ArgumentsCamelCase,
+	InferredOptionTypes, 
+} from 'yargs'
 
 /**
  * Clippo.
@@ -65,21 +70,23 @@ export default async function clippo( args: CliArgs ) {
 		defaltLocale : args.locales?.defaltLocale, 
 	} )
 	const mainColors  = args.title?.colors || [
-		'red', 'green', 'blue',
+		'red',
+		'green',
+		'blue',
 	]
 	const mainFont    = args.title?.font || 'ANSI Regular'
-	const defaultOpts = args.defaultOpts && Array.isArray( args.defaultOpts ) ? 
-		args.defaultOpts : 
-		Object.values( defaultCustomOpts )
+	const defaultOpts = args.defaultOpts && Array.isArray( args.defaultOpts ) 
+		? args.defaultOpts 
+		: Object.values( defaultCustomOpts )
 	
 	const mainTitleStyle = ( ) => {
 
 		if( args.title?.value === undefined || args.title?.value !== false ){
 
 			const title = typeof args.title?.value === 'string' ? args.title.value : args.name
-			return args.styles?.mainTitle ? 
-				args.styles.mainTitle( title, print ) :
-				'\n' + print.gradient( print.font( `${title.toUpperCase()}`, mainFont ), mainColors ) + '\n'
+			return args.styles?.mainTitle 
+				? args.styles.mainTitle( title, print )
+				: '\n' + print.gradient( print.font( `${title.toUpperCase()}`, mainFont ), mainColors ) + '\n'
 		
 		}
 	
@@ -101,28 +108,28 @@ export default async function clippo( args: CliArgs ) {
 
 	const prefixType = 'type_'
 	const text       = {
-		globalOptions                      : 'Global options:',
-		options                            : 'Options:',
-		commands                           : 'Commands:',
-		examples                           : 'Examples:' ,
-		docs                               : 'Documentation:',
-		usage                              : 'Usage:',
-		usageCmds                          : '<command/s>',
-		usageOpts                          : '[option/s>]',
-		versionDesc                        : 'Show Version number' ,
-		timeDesc                           : 'Show timeout',
-		helpDesc                           : 'Show Help',
-		verboseDesc                        : 'Run with verbose logging',
-		configDesc                         : `Get your configuration from a custom config file. \nFormats supported: JSON, YAML or TOML. You can get config from local path or url. Automatically searches for: (./package.json).${args.name} or ./${args.name}.[json|yaml|yml|toml].`,
-		requiredTitle                      : 'required',
-		choicesTitle                       : 'choices',
-		defaultTitle                       : 'default',
-		[prefixType + optionTypes.array]   : 'array',
-		[prefixType + optionTypes.string]  : 'string',
-		[prefixType + optionTypes.boolean] : 'boolean',
-		[prefixType + optionTypes.choices] : 'choices',
-		[prefixType + optionTypes.object]  : 'object',
-		[prefixType + optionTypes.number]  : 'number',
+		globalOptions                        : 'Global options:',
+		options                              : 'Options:',
+		commands                             : 'Commands:',
+		examples                             : 'Examples:',
+		docs                                 : 'Documentation:',
+		usage                                : 'Usage:',
+		usageCmds                            : '<command/s>',
+		usageOpts                            : '[option/s>]',
+		versionDesc                          : 'Show Version number',
+		timeDesc                             : 'Show timeout',
+		helpDesc                             : 'Show Help',
+		verboseDesc                          : 'Run with verbose logging',
+		configDesc                           : `Get your configuration from a custom config file. \nFormats supported: JSON, YAML or TOML. You can get config from local path or url. Automatically searches for: (./package.json).${args.name} or ./${args.name}.[json|yaml|yml|toml].`,
+		requiredTitle                        : 'required',
+		choicesTitle                         : 'choices',
+		defaultTitle                         : 'default',
+		[ prefixType + optionTypes.array ]   : 'array',
+		[ prefixType + optionTypes.string ]  : 'string',
+		[ prefixType + optionTypes.boolean ] : 'boolean',
+		[ prefixType + optionTypes.choices ] : 'choices',
+		[ prefixType + optionTypes.object ]  : 'object',
+		[ prefixType + optionTypes.number ]  : 'number',
 	}
 
 	const types = {
@@ -159,7 +166,7 @@ export default async function clippo( args: CliArgs ) {
 		for ( const opt of opts ) {
 
 			// @ts-ignore
-			transformedOptions[opt.key] = {
+			transformedOptions[ opt.key ] = {
 				desc         : descStyle( opt.desc ),
 				alias        : opt.alias,
 				type         : opt.type,
@@ -168,9 +175,9 @@ export default async function clippo( args: CliArgs ) {
 				coerce       : ( key: typeof opt.default ) => types.validateAndtransform( key, opt ),
 			}
 			// @ts-ignore
-			if( opt.default ) transformedOptions[opt.key].default = opt.default
+			if( opt.default ) transformedOptions[ opt.key ].default = opt.default
 			// @ts-ignore
-			if( opt.choices ) transformedOptions[opt.key].choices = opt.choices
+			if( opt.choices ) transformedOptions[ opt.key ].choices = opt.choices
 		
 		}
 	
@@ -204,7 +211,7 @@ export default async function clippo( args: CliArgs ) {
 
 		for ( let i = 0; i < cmds.length; i++ ) {
 
-			const cmd = cmds[i]
+			const cmd = cmds[ i ]
 			argv.command( 
 				cmd.key, 
 				cmd.desc, 
@@ -235,7 +242,7 @@ export default async function clippo( args: CliArgs ) {
 	
 	// addConfigCommand( argv, args.name )
 
-	if( args.cmds ) addCmds( argv,args.cmds )
+	if( args.cmds ) addCmds( argv, args.cmds )
 
 	if( !args.opts ) args.opts = []
 
@@ -283,10 +290,7 @@ export default async function clippo( args: CliArgs ) {
 		desc  : text.helpDesc,
 	} )
 
-	const gOpts = [
-		...Object.values( args.opts ).map( option => option.key ), 
-		optType.help.name,
-	]
+	const gOpts = [ ...Object.values( args.opts ).map( option => option.key ), optType.help.name ]
 
 	const showHelp = async ( params : CliHookParams ) => {
 
@@ -317,10 +321,7 @@ export default async function clippo( args: CliArgs ) {
 
 			writeCol( cmds.map( cmd => {
 
-				const key = [
-					nameStyle( wrap + args.name ),
-					cmdStyle( cmd.key ),
-				].join( ' ' )
+				const key = [ nameStyle( wrap + args.name ), cmdStyle( cmd.key ) ].join( ' ' )
 
 				return {
 					key,
@@ -335,19 +336,14 @@ export default async function clippo( args: CliArgs ) {
 
 			writeCol( opts.map( opt => {
 
-				const values = [
-					...( opt.alias ?? [] ), 
-					opt.key,
-				].map( value => {
+				const values = [ ...( opt.alias ?? [] ), opt.key ].map( value => {
 
 					if ( value.length > 2 ) return `--${value}`
 					return `-${value}`
 				
 				} ).join( ', ' )
 				
-				const props = [
-					typeStyle( `[${text[prefixType + opt.type]}]` ),
-				]
+				const props = [ typeStyle( `[${text[ prefixType + opt.type ]}]` ) ]
 				if( opt.required ) props.push( requiredStyle( `[${text.requiredTitle}]` ) )
 				if( opt.default ) props.push( defaultStyle( `[${text.defaultTitle}=${opt.default}]` ) )
 				if( opt.type === optionTypes.choices && opt.choices ) props.push( choicesStyle( `[${text.choicesTitle}=${opt.choices.join( ', ' )}` ) )
@@ -432,7 +428,9 @@ export default async function clippo( args: CliArgs ) {
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	const middleware = async ( innerArgv: ArgumentsCamelCase<yargs.Omit<{}, never> & InferredOptionTypes<{}>> ) => {
 
-		const { $0, _, ...opts } = innerArgv
+		const {
+			$0, _, ...opts 
+		} = innerArgv
 		if ( opts.verbose ) log.verbose = true
 		if ( opts.time ) log.addTimeout()
 
@@ -450,8 +448,8 @@ export default async function clippo( args: CliArgs ) {
 
 				const p = await fs.getObjectFrom( './package.json' )
 				// @ts-ignore
-				if( p[args.name] ) thisProcess.write( JSON.stringify( p[args.name] ) )
-				const c = await fs.getObjectFromPath( '.',args.name )
+				if( p[ args.name ] ) thisProcess.write( JSON.stringify( p[ args.name ] ) )
+				const c = await fs.getObjectFromPath( '.', args.name )
 				thisProcess.write( JSON.stringify( c ) )
 			
 			}catch( e ){
@@ -502,16 +500,16 @@ export default async function clippo( args: CliArgs ) {
 		// .alias( optType.help.aliases[0], optType.help.name )
 		.group( gOpts, text.globalOptions + '\n' )
 		.showHelpOnFail( false )
-		.middleware( [
-			middleware,
-		] )
+		.middleware( [ middleware ] )
 		.strict()
 		.parseAsync()
 	
 	// @ts-ignore
-	const { $0, _, ...opts } = argv.parsed.argv
-	const name               = $0
-	const cmds               = _
+	const {
+		$0, _, ...opts 
+	} = argv.parsed.argv
+	const name = $0
+	const cmds = _
 
 	return {
 		name,
@@ -519,7 +517,8 @@ export default async function clippo( args: CliArgs ) {
 		cmds,
 		opts,
 		showHelp : () => showHelp( {
-			cmds, opts,
+			cmds,
+			opts,
 		} ),
 		locales, 
 		print, 

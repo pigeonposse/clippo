@@ -4,44 +4,41 @@
  * @description Readme.
  */
 
-import { readme }             from './templates/readme.mjs'
 import {
-	pkg, addTextBetweenAMark, 
-} from './core/main.mjs'
+	pkg, 
+	addTextBetweenAMark,
+	execProcess, 
+} from '@clippo/config/core'
 
-const dynamicReadme = async () => {
+import { readme } from './templates/readme.mjs'
 
-	try{
+await execProcess( {
+	name : 'CHANGE README',
+	on   : async ( ) => {
 
-		const readmeTemp    = readme( pkg )
-		const convertReadme = async filePath => {
+		// const readmeTemp    = readme( pkg.data )
+		// const convertReadme = async filePath => {
 
-			await addTextBetweenAMark( filePath, '<!-- PIGEONPOSSE START MARK -->', '<!-- PIGEONPOSSE END MARK -->', readmeTemp.mark )
-			await addTextBetweenAMark( filePath, '<!-- PIGEONPOSSE START CONTENT -->', '<!-- PIGEONPOSSE END CONTENT -->', readmeTemp.content )
-			await addTextBetweenAMark( filePath, '<!-- PIGEONPOSSE START INDEX -->', '<!-- PIGEONPOSSE END INDEX -->', readmeTemp.index )
-			await addTextBetweenAMark( filePath, '<!-- PIGEONPOSSE START ORG -->', '<!-- PIGEONPOSSE END ORG -->', readmeTemp.org )
-			await addTextBetweenAMark( filePath, '<!-- PIGEONPOSSE START HEADER -->', '<!-- PIGEONPOSSE END HEADER -->', readmeTemp.header )
+		// 	await addTextBetweenAMark( filePath, '<!-- PIGEONPOSSE START MARK -->', '<!-- PIGEONPOSSE END MARK -->', readmeTemp.mark )
+		// 	await addTextBetweenAMark( filePath, '<!-- PIGEONPOSSE START CONTENT -->', '<!-- PIGEONPOSSE END CONTENT -->', readmeTemp.content )
+		// 	await addTextBetweenAMark( filePath, '<!-- PIGEONPOSSE START INDEX -->', '<!-- PIGEONPOSSE END INDEX -->', readmeTemp.index )
+		// 	await addTextBetweenAMark( filePath, '<!-- PIGEONPOSSE START ORG -->', '<!-- PIGEONPOSSE END ORG -->', readmeTemp.org )
+		// 	await addTextBetweenAMark( filePath, '<!-- PIGEONPOSSE START HEADER -->', '<!-- PIGEONPOSSE END HEADER -->', readmeTemp.header )
 		
-		}
-		await convertReadme( 'README.md' )
-		await convertReadme( 'packages/_config/README.md' )
-		await convertReadme( 'packages/lib/README.md' )
-		await convertReadme( 'packages/docs/README.md' )
+		// }
+
+		// const readmePaths = [
+		// 	'README.md',
+		// 	'packages/_config/README.md',
+		// 	'packages/lib/README.md',
+		// 	'packages/docs/README.md',
+		// ]
+
+		// for ( const path of readmePaths ) {
+
+		// 	await convertReadme( path )
+ 
+		// }
 	
-	}catch( e ){
-
-		throw '📝 ' + e
-
-	}
-
-}
-
-try {
-	
-	dynamicReadme()
-
-}catch( e ){
-
-	console.log( '❌ ' + e )
-
-}
+	},
+} )

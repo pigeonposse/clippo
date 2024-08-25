@@ -5,14 +5,10 @@
  * @see https://vitejs.dev/guide
  */
 
-import { mergeConfig } from 'vite'
 import utilsConfig     from '@clippo/config/vite.config.utils.js'
+import { mergeConfig } from 'vite'
 
 export default mergeConfig( 
 	utilsConfig, 
-	{ 
-		build : {
-			rollupOptions : {},
-		},
-	}, 
+	{ build: { rollupOptions: {} } }, 
 )

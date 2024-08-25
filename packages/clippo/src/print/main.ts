@@ -6,15 +6,20 @@
 
 export { spinner } from './spinner'
 export {
-	color, gradient, 
+	color,
+	gradient, 
 } from './color'
 export {
-	font,link, 
+	font,
+	link, 
 } from './text'
 export {
-	image,gif, 
+	image,
+	gif, 
 } from './image'
 export {
-	table, box, columns,
+	table,
+	box,
+	columns,
 } from './table'
 

@@ -1,12 +1,12 @@
 // import keypress from './keypress/main'
 import exec     from './exec/main'
 import prompt   from './prompt/main'
-import tasks    from './tasks/main'
 import readline from './readline/main'
+import tasks    from './tasks/main'
 import { time } from './time'
 
-import type { Logger } from 'logger/main'
 import type { Tasks }  from './tasks/types'
+import type { Logger } from 'logger/main'
 
 /**
  * Process.
@@ -40,6 +40,8 @@ export class Process {
 	 * @param   {Tasks}         list - The list of tasks to execute.
 	 * @returns {Promise<void>}      - A Promise that resolves when all tasks are completed.
 	 * @see https://clippo.pigeonposse.com
+	 * @example
+	 *
 	 */
 	tasks( list: Tasks ){
 
@@ -58,6 +60,8 @@ export class Process {
 	 *
 	 * @param   {string} [type] - The type of exit. Can be either 'succeed' or 'failed'.
 	 * @returns {void}
+	 * @example
+	 *
 	 */
 	exit( type: 'succeed' | 'failed' = 'succeed' ){
 

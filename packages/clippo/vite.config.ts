@@ -10,7 +10,8 @@
 
 import { defineConfig } from 'vite'
 import dts              from 'vite-plugin-dts'
-import { name }         from '../../package.json'
+
+import { name } from '../../package.json'
 
 export default defineConfig( {
 	esbuild : { 
@@ -22,14 +23,10 @@ export default defineConfig( {
 		target    : 'node18',
 		sourcemap : true,
 		lib       : {
-			entry : [
-				'src/main.ts',  
-			], 
+			entry    : [ 'src/main.ts' ], 
 			name, 
 			fileName : format => `${name}.${format}.js`,
-			formats  : [
-				'es', 
-			],
+			formats  : [ 'es' ],
 		},
 	},
 	// resolve : {
@@ -43,9 +40,5 @@ export default defineConfig( {
 	// define : {
 	// 	DMG_SCRIPT_CONTENT : JSON.stringify( dmgScript ),
 	// },
-	plugins : [ 
-		dts( {
-			rollupTypes : true,
-		} ),
-	],
+	plugins : [ dts( { rollupTypes: true } ) ],
 } )

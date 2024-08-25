@@ -9,23 +9,20 @@ tasks( {
 	task  : [
 		{
 			title : 'Task 0',
-			task  : [
-				{
-					title : 'Task 0.1',
-					// @ts-ignore
-					task  : async ( _, task ) => {
+			task  : [ {
+				title : 'Task 0.1',
+				// @ts-ignore
+				task  : async ( _, task ) => {
 
-						await delay( 500 )
-						task.title = 'Task finished'
-						//throw Error( 'Error forced' )
+					await delay( 500 )
+					task.title = 'Task finished'
+					//throw Error( 'Error forced' )
 						
-					},
 				},
-				{
-					title : 'Task 0.2',
-					task  : async () => await delay( 500 ),
-				},
-			],
+			}, {
+				title : 'Task 0.2',
+				task  : async () => await delay( 500 ),
+			} ],
 		},
 		{
 			title : 'Task 1',
@@ -33,16 +30,13 @@ tasks( {
 		},
 		{
 			title : 'Task concurrent',
-			task  : [
-				{
-					title : 'Task concurrent 1',
-					task  : async () => await delay( 1000 ),
-				},
-				{
-					title : 'Task concurrent 2',
-					task  : async () => await delay( 1000 ),
-				},
-			],
+			task  : [ {
+				title : 'Task concurrent 1',
+				task  : async () => await delay( 1000 ),
+			}, {
+				title : 'Task concurrent 2',
+				task  : async () => await delay( 1000 ),
+			} ],
 			concurrent : true,
 		},
 	],

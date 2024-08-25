@@ -36,27 +36,8 @@
 	"include": [
 		"./src/*.vue",
 		"./src/",
-		"../**/dist/main.d.ts"
-	],
-	"typedocOptions": {
-		"hideBreadcrumbs": true,
-		"hideInPageTOC": true,
-		"disableSources": true,
-		"plugin": [
-			"typedoc-plugin-markdown"
-		],
-		"entryPoints": [
-			"../fs/dist/main.d.ts",
-			"../i18n/dist/main.d.ts",
-			"../logger/dist/main.d.ts",
-			"../media/dist/main.d.ts",
-			"../process/dist/main.d.ts",
-			"../prompts/dist/main.d.ts",
-			"../qr/dist/main.d.ts",
-			"../styles/dist/main.d.ts",
-			"../updater/dist/main.d.ts"
-		],
-		"out": "../../docs/plugins"
-	}
+		"../**/dist/main.d.ts",
+		"../../.dev"
+	]
 }
   

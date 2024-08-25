@@ -1,9 +1,9 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
-title: Bepp blog
+title: CLIPPO blog
 hero:
-  name: "BEPP BLOG"
+  name: "CLIPPO BLOG"
   tagline: "News, articles, tutorials and more"
 pageClass: 'articles'
 ---

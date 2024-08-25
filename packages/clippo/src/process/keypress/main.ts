@@ -1,7 +1,9 @@
 import {
-	createInterface, clearScreenDown,
+	createInterface,
+	clearScreenDown,
 	cursorTo, 
 } from 'node:readline'
+
 import type { KeyPressParams } from './types'
 
 /**
@@ -10,6 +12,8 @@ import type { KeyPressParams } from './types'
  * @param   {KeyPressParams['keys']} keys    - Array of arrays containing combinations of keys to capture.
  * @param   {Function}               handler - Handler function to execute when the specified keys are pressed.
  * @returns {object}                         - Object containing stop function.
+ * @example
+ *
  */
 export default function keypress( 
 	keys: KeyPressParams['keys'], 
@@ -27,6 +31,8 @@ export default function keypress(
 	 *
 	 * @param {any}    _          - Unused parameter.
 	 * @param {object} pressedKey - Object containing information about the pressed key.
+	 * @example
+	 *
 	 */
 	// @ts-ignore
 	const keypressListener = ( _, pressedKey ) => {
@@ -68,7 +74,7 @@ export default function keypress(
 
 	const clearScreen = () => {
 
-		cursorTo( process.stdout, 0,0 )
+		cursorTo( process.stdout, 0, 0 )
 		clearScreenDown( process.stdout )
 	
 	}
@@ -82,6 +88,9 @@ export default function keypress(
 
 	/**
 	 * Method to start capturing keyboard events.
+	 *
+	 * @example
+	 *
 	 */
 	const start = () => {
 
@@ -103,6 +112,9 @@ export default function keypress(
 
 	/**
 	 * Method to stop capturing keyboard events and restore terminal settings.
+	 *
+	 * @example
+	 *
 	 */
 	const stop = () => {
 

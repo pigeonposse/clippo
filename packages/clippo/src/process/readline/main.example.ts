@@ -1,8 +1,10 @@
 import {
-	color, gradient, 
+	color,
+	gradient, 
 } from 'print/color'
-import readline from './main'
 import { font } from 'print/text'
+
+import readline from './main'
 
 const delay = ( ms: number ): Promise<void> => new Promise( resolve => setTimeout( resolve, ms ) )
 	
@@ -16,15 +18,16 @@ ${color.green( 'h' )}           ==> ${color.blue( 'print help' )}
 ============================\n`
 const title = gradient( font( '\nTest\n', '3-D' ), [
 	// @ts-ignore
-	'red', 'yellow',
-] )
+	'red', 'yellow' ] )
 
 const main = async () =>{
 	
 	const rl = readline( )
 	rl.clearScreen()
 	rl.pauseWrite()
-	rl.onKeypress( ( keypress, { write, stop, clearScreen, resumeWrite, pauseWrite } ) => {
+	rl.onKeypress( ( keypress, {
+		write, stop, clearScreen, resumeWrite, pauseWrite, 
+	} ) => {
 
 		if( keypress.includes( 'h' ) ) write( info ) 
 		if( keypress.includes( 't' ) ) write( title )

@@ -1,10 +1,13 @@
-import deepmerge           from 'deepmerge'
-import { type ClippoArgs } from './types'
+import deepmerge from 'deepmerge'
+
 import { defaultArgs }     from './default'
+import { type ClippoArgs } from './types'
 
 export const mergeConfig = ( opts: ClippoArgs ): ClippoArgs => {
 
-	const { extends: exts, ...options } = opts
+	const {
+		extends: exts, ...options 
+	} = opts
 
 	const res = deepmerge.all( [
 		defaultArgs, 

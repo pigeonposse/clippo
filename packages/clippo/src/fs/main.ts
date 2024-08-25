@@ -3,17 +3,25 @@
  *
  * @description File for set fylesystem functions.
  */
+import yaml from 'js-yaml'
 import {
-	stat, readFile, writeFile, access, constants, mkdir, rm,
+	stat,
+	readFile,
+	writeFile,
+	access,
+	constants,
+	mkdir,
+	rm,
 }                        from 'node:fs/promises'
+import { homedir } from 'node:os'
 import {
-	join, resolve, 
+	join,
+	resolve, 
 }                        from 'node:path'
-import { homedir }       from 'node:os'
 import open, { openApp } from 'open'
-import yaml              from 'js-yaml'
 import toml              from 'toml'
-import localStorage      from './localstorage'
+
+import localStorage from './localstorage'
 
 export class Fs {
 
@@ -72,6 +80,8 @@ export class Fs {
 	 *
 	 * @param {string} path - The path of the directory to remove.
 	 * @throws {Error} If an error occurs while removing the directory.
+	 * @example
+	 *
 	 */
 	async removeDir( path: string ){
 
@@ -97,6 +107,8 @@ export class Fs {
 	 *
 	 * @param {string} path - The path of the directory to remove.
 	 * @throws {Error} If an error occurs while removing the directory.
+	 * @example
+	 *
 	 */
 	async removeDirIfExist( path: string ){
 
@@ -111,6 +123,8 @@ export class Fs {
 	 *
 	 * @param   {string}           path - The path to check.
 	 * @returns {Promise<boolean>}      - A promise that resolves to true if the path points to a directory, otherwise false.
+	 * @example
+	 *
 	 */
 	async isDirectory( path: string ){
 
@@ -125,15 +139,15 @@ export class Fs {
 	 *
 	 * @param {string} path - The path of the directory to create.
 	 * @throws {Error} If an error occurs while creating the directory.
+	 * @example
+	 *
 	 */
 	async createDir( path: string ) {
 
 		try {
 
 			path = this.#validateHomeDir( path )
-			await mkdir( path, {
-				recursive : true, 
-			} )
+			await mkdir( path, { recursive: true } )
 		
 		} catch ( error ) {
 
@@ -148,6 +162,8 @@ export class Fs {
 	 *
 	 * @param   {string}           path - The path to check.
 	 * @returns {Promise<boolean>}      - A promise that resolves to true if a directory exists at the specified path, otherwise false.
+	 * @example
+	 *
 	 */
 	async existsDir( path: string ) {
 
@@ -181,6 +197,8 @@ export class Fs {
 	 * @param   {string}           path - The path to the file.
 	 * @returns {Promise<boolean>}      - A promise that resolves to true if the file exists, otherwise false.
 	 * @throws {Error} If an error occurs while checking the existence of the file.
+	 * @example
+	 *
 	 */
 	async existsFile( path: string ) {
 
@@ -214,6 +232,8 @@ export class Fs {
 	 * @param {string}          path    - The path of the file to write to.
 	 * @param {string | Buffer} content - The content to write to the file.
 	 * @throws {Error} If an error occurs while writing to the file.
+	 * @example
+	 *
 	 */
 	async writeFile( path: string, content: string | Buffer ) {
 
@@ -228,6 +248,8 @@ export class Fs {
 	 * @param   {string}           path - The path to check.
 	 * @returns {Promise<boolean>}      - A promise that resolves to true if a file or directory exists at the specified path, otherwise false.
 	 * @throws {Error} If an error occurs while checking the existence of the path.
+	 * @example
+	 *
 	 */
 	async existsPath( path: string ) {
 
@@ -245,6 +267,8 @@ export class Fs {
 	 * @param {string} base64String - Base64 string representing the image.
 	 * @param {string} outputPath   - Path to save the image file.
 	 * @throws {Error} If the base64 string is invalid.
+	 * @example
+	 *
 	 */
 	async createImageFromBase64( base64String: string, outputPath: string ) {
 
@@ -253,7 +277,7 @@ export class Fs {
 		const matches = base64String.match( /^data:([A-Za-z-+\/]+);base64,(.+)$/ )
 		// const contentType = matches[1]
 		if ( !matches ) throw Error( 'Invalid base image' )
-		const base64Data = matches[2]
+		const base64Data = matches[ 2 ]
 	
 		// Convert base64 to buffer
 		const buffer = Buffer.from( base64Data, 'base64' )
@@ -269,6 +293,8 @@ export class Fs {
 	 * @param   {string}          url - URL of the resource.
 	 * @returns {Promise<string>}     - The fetched content.
 	 * @throws {Error} If there is an error fetching content from the URL.
+	 * @example
+	 *
 	 */
 	async fetchContent( url: string ) {
 
@@ -309,6 +335,8 @@ export class Fs {
 	 * @param   {string}                     path - Path to the JSON file.
 	 * @returns {Promise<object | object[]>}      - The parsed JSON object.
 	 * @throws {Error} If there is an error reading the JSON file.
+	 * @example
+	 *
 	 */
 	async getObjectFromJSONFile( path: string ){
 
@@ -334,6 +362,8 @@ export class Fs {
 	 * @param   {string}                     path - Path to the JSON file.
 	 * @returns {Promise<object | object[]>}      - The parsed JSON object.
 	 * @throws {Error} If there is an error reading the JSON file.
+	 * @example
+	 *
 	 */
 	async getObjectFromYAMLFile( path: string ){
 
@@ -359,6 +389,8 @@ export class Fs {
 	 * @param   {string}                     path - Path to the JSON file.
 	 * @returns {Promise<object | object[]>}      - The parsed JSON object.
 	 * @throws {Error} If there is an error reading the JSON file.
+	 * @example
+	 *
 	 */
 	async getObjectFromTOMLFile( path: string ){
 
@@ -385,6 +417,8 @@ export class Fs {
 	 * @param   {string}          path - Path to the file.
 	 * @returns {Promise<object>}      - The object retrieved from the file.
 	 * @throws {Error} If the file does not exist, or if the data is not an object.
+	 * @example
+	 *
 	 */
 	async getObjectFromFile( path: string ) {
 
@@ -436,6 +470,8 @@ export class Fs {
 	 * @param   {string}                       filename - Name of the file (without extension).
 	 * @returns { Promise<object | undefined>}          - The object retrieved from the file.
 	 * @throws {Error} If the file does not exist, or if the data is not an object.
+	 * @example
+	 *
 	 */
 	async getObjectFromPath( path: string, filename: string ) {
 
@@ -444,7 +480,7 @@ export class Fs {
 			const exts = Object.values( this.#objectExts )
 			for ( let index = 0; index < exts.length; index++ ) {
 
-				const ext      = exts[index]
+				const ext      = exts[ index ]
 				const filePath = this.join( path, filename + '.' + ext )
 				const exists   = await this.existsFile( filePath )
 				if( exists ){
@@ -475,6 +511,8 @@ export class Fs {
 	 * @param   {string}          url - URL of the resource.
 	 * @returns {Promise<object>}     - The object retrieved from the URL.
 	 * @throws {Error} If there is an error fetching data from the URL or parsing the object.
+	 * @example
+	 *
 	 */
 	async getObjectFromUrl( url: string ) {
 
@@ -535,6 +573,8 @@ export class Fs {
 	 * @param   {string}          input - Path to a file or URL of the resource.
 	 * @returns {Promise<object>}       - The object retrieved from the file or URL.
 	 * @throws {Error} If there is an error fetching data or parsing the object.
+	 * @example
+	 *
 	 */
 	async getObjectFrom( input: string ): Promise<object> {
 		

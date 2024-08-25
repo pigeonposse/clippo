@@ -1,0 +1,8 @@
+{
+	"extends": "./node_modules/@clippo/config/typedoc.json",
+	"out": "./docs"
+	// "navigationModel": {
+	// 	"excludeGroups": true,
+	// 	"excludeCategories": true
+	// }
+}

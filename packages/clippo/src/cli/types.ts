@@ -20,33 +20,23 @@ export const defaultCustomOpts = {
 export const optType = {
 	version : {
 		name    : 'version',
-		aliases : [
-			'V',
-		],
+		aliases : [ 'V' ],
 	},
 	help : {
 		name    : 'help',
-		aliases : [
-			'h',
-		],
+		aliases : [ 'h' ],
 	},
 	verbose : {
 		name    : defaultCustomOpts.verbose,
-		aliases : [
-			'v',
-		],
+		aliases : [ 'v' ],
 	},
 	config : {
 		name    : defaultCustomOpts.config,
-		aliases : [
-			'c',
-		],
+		aliases : [ 'c' ],
 	},
 	time : {
 		name    : defaultCustomOpts.time,
-		aliases : [
-			't',
-		],
+		aliases : [ 't' ],
 	},
 } 
 export const optionTypes = {

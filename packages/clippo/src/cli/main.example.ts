@@ -1,7 +1,11 @@
 
-import clippo                                        from './main'
+import clippo  from './main'
 import {
-	description, version, name, homepage, repository,
+	description,
+	version,
+	name,
+	homepage,
+	repository,
 } from '../../package.json'
 
 try {
@@ -15,7 +19,9 @@ try {
 			docsUrl : homepage,
 			title   : {
 				colors : [
-					'red', 'green', 'blue',
+					'red',
+					'green',
+					'blue',
 				],
 				font  : '3-D',
 				value : 'ethan cli',
@@ -41,7 +47,10 @@ try {
 							type    : 'choices',
 							desc    : 'print number',
 							choices : [
-								1, 2, 3, 4,
+								1,
+								2,
+								3,
+								4,
 							],
 							default : 4,
 						},
@@ -49,9 +58,7 @@ try {
 							key     : 'array',
 							type    : 'array',
 							desc    : 'print array',
-							default : [
-								'array',
-							],
+							default : [ 'array' ],
 						},
 					],
 				},
@@ -75,26 +82,20 @@ try {
 						{
 							key         : 'custom',
 							desc        : 'Open a custom url',
-							positionals : [
-								{
-									key      : 'url',
-									type     : 'string',
-									desc     : 'set the url to open',
-									required : true,
-								},
-							],
+							positionals : [ {
+								key      : 'url',
+								type     : 'string',
+								desc     : 'set the url to open',
+								required : true,
+							} ],
 						},
 					],
-					opts : [
-						{
-							key   : 'firefox',
-							alias : [
-								'f',
-							],
-							type : 'boolean',
-							desc : 'Open url in firefox',
-						},
-					],
+					opts : [ {
+						key   : 'firefox',
+						alias : [ 'f' ],
+						type  : 'boolean',
+						desc  : 'Open url in firefox',
+					} ],
 				},
 			],
 			// opts : [
@@ -107,16 +108,13 @@ try {
 			// 		desc : 'say yes to all',
 			// 	},
 			// ],
-			examples : [
-				{
-					desc  : 'Open repo',
-					value : 'clippo open repo',
-				},
-				{
-					desc  : 'Write number 3',
-					value : 'clippo types --number 3',
-				},
-			],
+			examples : [ {
+				desc  : 'Open repo',
+				value : 'clippo open repo',
+			}, {
+				desc  : 'Write number 3',
+				value : 'clippo types --number 3',
+			} ],
 			// defaultOpts : [
 			// 	'time',
 			// ],
@@ -128,15 +126,13 @@ try {
 			// },
 		} )
 		
-		const { cmds, opts, log, showHelp } = cli
+		const {
+			cmds, opts, log, showHelp, 
+		} = cli
 		// console.log( cmds, opts )
 		if( cmds.includes( 'open' ) ) {
 
-			const browser = opts.firefox ? {
-				app : {
-					name : 'firefox',
-				},
-			} : undefined
+			const browser = opts.firefox ? { app: { name: 'firefox' } } : undefined
 
 			if( cmds.includes( 'docs' ) )
 				cli.fs.open( homepage, browser )

@@ -4,6 +4,7 @@
  * @description Cz-customizable config.
  * @see https://github.com/leoforfree/cz-customizable
  */
+const { extra } = require( '../package.json' )
 
 module.exports = {
 	types : [
@@ -57,44 +58,21 @@ module.exports = {
 		},
 	],
 	
-	scopes : [
-		{
-			name : 'config', 
-		},
-		{
-			name : 'lib', 
-		},
-		{
-			name : 'docs', 
-		},
-		{
-			name : 'all', 
-		},
-	],
+	scopes : extra.scopes,
 
 	scopeOverrides : {
 		fix : [
-			{
-				name : 'merge', 
-			}, 
-			{
-				name : 'style', 
-			}, 
-			{
-				name : 'test', 
-			}, 
-			{
-				name : 'hotfix', 
-			}, 
+			{ name: 'merge' }, 
+			{ name: 'style' }, 
+			{ name: 'test' }, 
+			{ name: 'hotfix' }, 
 		], 
 	},
 
 	allowCustomScopes    : true,
-	allowBreakingChanges : [
-		'feat', 'fix', 
-	],
+	allowBreakingChanges : [ 'feat', 'fix' ],
 	// skip any questions you want
 	// skipQuestions: ['body'],
-	subjectLimit : 100,
+	subjectLimit         : 100,
 }
 

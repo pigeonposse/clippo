@@ -4,19 +4,22 @@
  * @description File for set core types.
  */
 
-import type * as styles      from '@clippo/styles'
-import type { I18nOpts }    from '@clippo/i18n'
-import type  i18n    from '@clippo/i18n'
+import type { Fs }       from '@clippo/fs'
+import type { I18nOpts } from '@clippo/i18n'
+import type  i18n        from '@clippo/i18n'
 import type {
-	UpdaterOptions, updater, 
+	Logger,
+	LoggerParams, 
+} from '@clippo/logger'
+import type * as clippoProcess from '@clippo/process'
+import type * as styles        from '@clippo/styles'
+import type {
+	UpdaterOptions,
+	updater, 
 } from '@clippo/updater'
 import type {
-	Logger, LoggerParams, 
-} from '@clippo/logger'
-import type { Fs }                           from '@clippo/fs'
-import type * as clippoProcess               from '@clippo/process'
-import type {
-	ArgumentsCamelCase, InferredOptionTypes, 
+	ArgumentsCamelCase,
+	InferredOptionTypes, 
 } from 'yargs'
 import type yargs from 'yargs'
 
@@ -34,33 +37,23 @@ export const defaultCustomOpts = {
 export const optType = {
 	version : {
 		name    : 'version',
-		aliases : [
-			'V', 
-		],
+		aliases : [ 'V' ],
 	},
 	help : {
 		name    : 'help',
-		aliases : [
-			'h', 
-		],
+		aliases : [ 'h' ],
 	},
 	verbose : {
 		name    : defaultCustomOpts.verbose,
-		aliases : [
-			'v', 
-		],
+		aliases : [ 'v' ],
 	},
 	config : {
 		name    : defaultCustomOpts.config,
-		aliases : [
-			'c', 
-		],
+		aliases : [ 'c' ],
 	},
 	time : {
 		name    : defaultCustomOpts.time,
-		aliases : [
-			't', 
-		],
+		aliases : [ 't' ],
 	},
 } 
 export const optionTypes = {

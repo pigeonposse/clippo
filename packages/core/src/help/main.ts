@@ -1,13 +1,19 @@
-import { wrap }                  from 'module'
+import { wrap } from 'module'
+
+import { getData } from './data'
+
 import type { ClippoMiddleware } from '../types'
-import { getData }               from './data'
 
 export const helpMiddleware = async ( args: ClippoMiddleware ) => {
 
-	const { opts, cmds, utils, params } = args
+	const {
+		opts, cmds, utils, params, 
+	} = args
 	if ( !( 'help' in opts ) ) return
 
-	const { log, thisProcess, styles, _ } = utils
+	const {
+		log, thisProcess, styles, _, 
+	} = utils
 	
 	// const isHelp = ( !cmds || !Array.isArray( cmds ) || cmds.length <= 0 ) || 'help' in opts
 	// console.log( params )
@@ -33,9 +39,7 @@ export const helpMiddleware = async ( args: ClippoMiddleware ) => {
 				
 				},
 			},
-			desc : {
-				maxWidth : 60,
-			},
+			desc : { maxWidth: 60 },
 		},
 	}
 
@@ -57,9 +61,10 @@ export const helpMiddleware = async ( args: ClippoMiddleware ) => {
 
 		thisProcess.write( currentData.cmds.title + '\n' )
 		const colArr = currentData.cmds.value.map( d => ( {
-			separator : '  ',...d,
+			separator : '  ',
+			...d,
 		} ) )
-		thisProcess.write( styles.columns( colArr,columnConfig ) )
+		thisProcess.write( styles.columns( colArr, columnConfig ) )
 		thisProcess.write( '' )
 	
 	}
@@ -67,7 +72,8 @@ export const helpMiddleware = async ( args: ClippoMiddleware ) => {
 
 		thisProcess.write( currentData.opts.title + '\n' )
 		const colArr = currentData.opts.value.map( d => ( {
-			separator : '  ',...d,
+			separator : '  ',
+			...d,
 		} ) )
 		thisProcess.write( styles.columns( colArr, columnConfig ) )
 		thisProcess.write( '' )
@@ -77,9 +83,10 @@ export const helpMiddleware = async ( args: ClippoMiddleware ) => {
 
 		thisProcess.write( globalData.opts.title + '\n' )
 		const colArr = globalData.opts.value.map( d => ( {
-			separator : '  ',...d,
+			separator : '  ',
+			...d,
 		} ) )
-		thisProcess.write( styles.columns( colArr,columnConfig ) )
+		thisProcess.write( styles.columns( colArr, columnConfig ) )
 		thisProcess.write( '' )
 	
 	}
@@ -87,9 +94,10 @@ export const helpMiddleware = async ( args: ClippoMiddleware ) => {
 
 		thisProcess.write( currentData.examples.title + '\n' )
 		const colArr = currentData.examples.value.map( d => ( {
-			separator : '  ',...d,
+			separator : '  ',
+			...d,
 		} ) )
-		thisProcess.write( styles.columns( colArr,columnConfig ) )
+		thisProcess.write( styles.columns( colArr, columnConfig ) )
 		thisProcess.write( '' )
 	
 	}

@@ -1,17 +1,22 @@
-import type { ListrTask } from 'listr2'
 import {
-	Listr, PRESET_TIMER, 
+	Listr,
+	PRESET_TIMER, 
 } from 'listr2'
-import type { Logger } from '../../logger/main'
+
 import type {
-	Task, Tasks, 
+	Task,
+	Tasks, 
 } from './types'
+import type { Logger }    from '../../logger/main'
+import type { ListrTask } from 'listr2'
 
 /**
  * Get task props.
  *
  * @param   {Task}   task - Object of tasks props.
  * @returns {object}      - Tasks object.
+ * @example
+ *
  */
 function getTaskProps ( task: Task ){
 
@@ -38,18 +43,14 @@ function getTaskProps ( task: Task ){
 		//@ts-ignore
 		rendererOptions.timer = PRESET_TIMER
 		//@ts-ignore
-		res.fallbackRendererOptions = {
-			timer : PRESET_TIMER,
-		}
+		res.fallbackRendererOptions = { timer: PRESET_TIMER }
 	
 	}else if ( task.timer === false ){
 
 		//@ts-ignore
 		rendererOptions.timer = false
 		//@ts-ignore
-		res.fallbackRendererOptions = {
-			timer : false,
-		}
+		res.fallbackRendererOptions = { timer: false }
 	
 	}
 
@@ -66,14 +67,16 @@ function getTaskProps ( task: Task ){
  *
  * @param   {Task[]} tasks - The list of tasks to execute.
  * @returns {object}       - Tasks object.
+ * @example
+ *
  */
 function getTasksList ( tasks: Task[] ): ListrTask[]{
 
 	return tasks.map( currTask => {
 
 		const props = getTaskProps( currTask )
-		return ( Array.isArray( currTask.task ) ) ? 
-			{
+		return ( Array.isArray( currTask.task ) ) 
+			? {
 				title : currTask.title,
 				task  : ( _, task ) => {
 
@@ -103,6 +106,8 @@ function getTasksList ( tasks: Task[] ): ListrTask[]{
  * @param   {Tasks}         tasks  - The list of tasks to execute.
  * @param   {Logger}        logger - Logger instance.
  * @returns {Promise<void>}        - A Promise that resolves when all tasks are completed.
+ * @example
+ *
  */
 export default async function tasks( tasks: Tasks, logger: Logger ) {
 

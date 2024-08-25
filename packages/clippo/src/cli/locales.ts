@@ -5,9 +5,11 @@
  */
 
 // eslint-disable-next-line import/default
-import y18n       from 'y18n'
+import y18n from 'y18n'
+
+import { Fs } from '../fs/main'
+
 import type yargs from 'yargs'
-import { Fs }     from '../fs/main'
 
 type LocalesParams = { 
 	yargs: typeof yargs 
@@ -23,7 +25,9 @@ export class Locales {
 	y18n: typeof y18n | undefined
 	fs = new Fs()
 
-	constructor( { yargs, dir, defaltLocale }: LocalesParams ) {
+	constructor( {
+		yargs, dir, defaltLocale, 
+	}: LocalesParams ) {
 
 		this.yargs        = yargs
 		this.dir          = dir || this.fs.getAbsolutePath( './locale' )

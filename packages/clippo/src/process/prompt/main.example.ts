@@ -15,21 +15,18 @@ const run = async () => {
 			name     : 'snippet',
 			message  : 'Fill out the fields in package.json',
 			required : true,
-			fields   : [
-				{
-					name    : 'author_name',
-					message : 'Author Name',
-				},
-				{
-					name : 'version',
-					// @ts-ignore
-					// validate : ( value, state, item ) =>{
+			fields   : [ {
+				name    : 'author_name',
+				message : 'Author Name',
+			}, {
+				name : 'version',
+				// @ts-ignore
+				// validate : ( value, state, item ) =>{
 
-					// 	return true
+				// 	return true
 
-					// },
-				},
-			],
+				// },
+			} ],
 			template : `\n{
 	"name": "\${name}",
 	"description": "\${description}",
@@ -48,7 +45,11 @@ const run = async () => {
 			hint     : '(Use <shifth+up/down> to move) Top is best, bottom is worst',
 			numbered : true,
 			choices  : [
-				'red', 'white', 'green', 'cyan', 'yellow',
+				'red',
+				'white',
+				'green',
+				'cyan',
+				'yellow',
 			],
 		},
 		{
@@ -56,7 +57,11 @@ const run = async () => {
 			name    : 'select',
 			message : 'Pick a flavor',
 			choices : [
-				'apple', 'grape', 'watermelon', 'cherry', 'orange',
+				'apple',
+				'grape',
+				'watermelon',
+				'cherry',
+				'orange',
 			],
 		},
 		{
@@ -65,23 +70,31 @@ const run = async () => {
 			message : 'Please rate your experience',
 			scale   : [
 				{
-					name : '1', message : 'Strongly Disagree', 
+					name    : '1',
+					message : 'Strongly Disagree', 
 				},
 				{
-					name : '2', message : 'Disagree', 
+					name    : '2',
+					message : 'Disagree', 
 				},
 				{
-					name : '3', message : 'Neutral', 
+					name    : '3',
+					message : 'Neutral', 
 				},
 				{
-					name : '4', message : 'Agree', 
+					name    : '4',
+					message : 'Agree', 
 				},
 				{
-					name : '5', message : 'Strongly Agree', 
+					name    : '5',
+					message : 'Strongly Agree', 
 				},
 			],
 			margin : [
-				0, 0, 2, 1,
+				0,
+				0,
+				2,
+				1,
 			],
 			choices : [
 				{
@@ -117,23 +130,31 @@ const run = async () => {
 			message : 'Please rate your experience',
 			scale   : [
 				{
-					name : '1', message : 'Strongly Disagree', 
+					name    : '1',
+					message : 'Strongly Disagree', 
 				},
 				{
-					name : '2', message : 'Disagree', 
+					name    : '2',
+					message : 'Disagree', 
 				},
 				{
-					name : '3', message : 'Neutral', 
+					name    : '3',
+					message : 'Neutral', 
 				},
 				{
-					name : '4', message : 'Agree', 
+					name    : '4',
+					message : 'Agree', 
 				},
 				{
-					name : '5', message : 'Strongly Agree', 
+					name    : '5',
+					message : 'Strongly Agree', 
 				},
 			],
 			margin : [
-				0, 0, 2, 1,
+				0,
+				0,
+				2,
+				1,
 			],
 			choices : [
 				{
@@ -171,16 +192,20 @@ const run = async () => {
 			// limit   : 4,
 			choices : [
 				{
-					name : 'aqua', value : '#00ffff', 
+					name  : 'aqua',
+					value : '#00ffff', 
 				},
 				{
-					name : 'black', value : '#000000', 
+					name  : 'black',
+					value : '#000000', 
 				},
 				{
-					name : 'blue', value : '#0000ff', 
+					name  : 'blue',
+					value : '#0000ff', 
 				},
 				{
-					name : 'fuchsia', value : '#ff00ff', 
+					name  : 'fuchsia',
+					value : '#ff00ff', 
 				},
 			],
 		},

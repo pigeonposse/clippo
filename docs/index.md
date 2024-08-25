@@ -3,7 +3,7 @@
 layout: home
 hero:
   name: CLIPPO
-#   text: Command Line Interface with Powerful and Pristine Operations
+  text: All in one CLI Library
   tagline: Command Line Interface with Powerful and Pristine Operations
   image:
       src: /logo.png
@@ -18,37 +18,35 @@ hero:
 
 features:
 
-  - title: CLI
-    icon: 💻
-    details: Command Line Interface (CLI) tools for efficient task management in the terminal.
-    link: guide/getting-started
+  - title: Get started
+    icon: 👋
+    details: Start your project now!
+    link: guide/
 
-  - title: JS / NODE
-    icon: 🚀
-    details: Use bepp via JS.
-    link: guide/getting-started
+  - title: Library
+    icon: 📚
+    details: Learn and check the documentation.
+    link: guide/lib
 
-  - title: Github action
-    icon: 🤖
-    details: Use bepp via Github action.
-    link: guide/gh-action
-
-  - title: Build with Config file
-    icon: ⚙️
-    details: Use a configuration file to build multiple browser extensions.
-    link: guide/build/config-file
-
-  - title: Build Safari extension
-    icon: 🧭
-    details: Build extensions for Safari using Chromium extensions.
-    link: guide/build/safari
-
-  - title: Build Custom extension
+  - title: Utils
     icon: 🛠️
-    details: Create custom extensions for different browsers according to the specific project needs.
-    link: guide/build/custom
-
-# demo: /demo.gif
+    details: Learn and check the CLIPPO utilities.
+    link: guide/utils
 
 ---
 
+::: code-group
+
+```bash [npm]
+npm install clippo
+```
+
+```bash [pnpm]
+pnpm install clippo
+```
+
+```bash [yarn]
+yarn add clippo
+```
+
+:::

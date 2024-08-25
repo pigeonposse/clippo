@@ -1,81 +1,106 @@
 /**
- * TODO inquirer.
+ * TODO prompt.
  *
- * @description Add inquirer for edit project TODO List.
+ * @description Add prompt for edit project TODO List.
  */
 
-import inquirer from 'inquirer'
-import path     from 'node:path'
-import fs       from 'node:fs/promises'
-import { exec } from './core/main.mjs'
+import {
+	initCache,
+	execProcess, 
+	getFilteredFileNames, 
+	joinPath, 
+	paths, 
+	prompt,
+	printMDFromPath,
+} from '@clippo/config/core'
 
-const main = async () => {
+await execProcess( {
+	name : 'TODO',
+	on   : async ( { log } ) => {
 
-	try {
-
-		const currentDir       = path.dirname( new URL( import.meta.url ).pathname )
-		const todoFolderPath   = path.resolve( currentDir, '../docs/todo/' )
-		const files            = await fs.readdir( todoFolderPath )
-		const fileNames        = files.map( file => file.replace( '.md', '' ) )
+		const todoFolderPath = paths.todoDir
+		const fileNames      = await getFilteredFileNames( {
+			path       : todoFolderPath,
+			extensions : [ '.md' ],
+		} )
+		const data           = {
+			selectedFile  : 'selectedFile',
+			showInConsole : 'showInConsole',
+		}
+		const cache          = await initCache( {
+			id     : 'todo',
+			values : {
+				[ data.selectedFile ]  : fileNames[ 0 ],
+				[ data.showInConsole ] : true,
+			},
+		} )
+		
 		const logFilesPathList = async () => {
+			
+			const list = fileNames.map( file => ( {
+				name : file.replace( '.md', '' ),
+				path : joinPath( todoFolderPath, file ),
+			} ) )
 
-			const files = await fs.readdir( todoFolderPath )
-			console.group( '\nList of files in the "TODO" folder:' )
-			files.forEach( file =>
-				console.log( '- 🔗 ' + file.replace( '.md', '' ) + ': ' + path.join( todoFolderPath, file ) ),
-			)
-			console.groupEnd()
+			log.info( {
+				description : 'List of files in the "TODO" folder:',
+				list,
+			} )
 
 		}
 
-		const logFilePath    = async fileName => {
+		const logFilePath = async fileName => {
 
-			console.group( '\nTODO file path:' )
-			console.log( '- 🔗 ' + fileName + ': ' + path.join( todoFolderPath, fileName + '.md' ) )
-			console.groupEnd()
+			const list =  {
+				name : fileName,
+				path : joinPath( todoFolderPath, fileName + '.md' ),
+			} 
+
+			log.info( {
+				description : 'List of files in the "TODO" folder:',
+				list,
+			} )
 		
 		}
 		const logFileContent = async fileName => {
 
-			const selectedFilePath = path.join( todoFolderPath, fileName + '.md' )
-			console.log( '\nFile content:\n' )
-			console.group()
-			await exec( 'md ' + selectedFilePath )
-			console.groupEnd()
+			const selectedFilePath = joinPath( todoFolderPath, fileName + '.md' )
+
+			log.box( await printMDFromPath( selectedFilePath ) )
 		
 		}
-
-		const firstAnswers = await inquirer.prompt( [
-			{
-				type    : 'list',
-				name    : 'selectedFile',
-				message : 'Select a file from the "TODO" folder:',
-				choices : [
-					...fileNames, 'All','Exit',
-				],
-			},
-		] )
+		let secondAns 
+		const firstAnswers = await prompt( [ {
+			type    : 'list',
+			name    : data.selectedFile,
+			message : 'Select a file from the "TODO" folder:',
+			choices : [
+				...fileNames, 
+				'All'
+				, 'Exit',
+			],
+			default : cache.get( data.selectedFile ),
+		} ] )
 
 		if ( firstAnswers.selectedFile !== 'Exit' ) {
 
-			const answers = await inquirer.prompt( [
-				{
-					type    : 'confirm',
-					name    : 'showInConsole',
-					message : 'Do you want to show the selected file in the console?',
-				},
-			] )
+			secondAns = await prompt( [ {
+				type    : 'confirm',
+				name    : data.showInConsole,
+				message : 'Do you want to show the selected file in the console?',
+				default : cache.get( data.showInConsole ),
+			} ] )
 
 			if ( firstAnswers.selectedFile !== 'All' ) {
 
-				if ( answers.showInConsole ) 
+				if ( secondAns.showInConsole ) 
 					await logFileContent( firstAnswers.selectedFile )
 
 				await logFilePath( firstAnswers.selectedFile )
 			
 			}else {
 
-				if ( answers.showInConsole ) {
+				if ( secondAns.showInConsole ) {
 
 					for ( const fileName of fileNames ) {
 
@@ -89,18 +114,13 @@ const main = async () => {
 			
 			}
 
-		} else {
+		} else log.info( '✨ Exit from TODOs' )
 
-			console.log( '✨ Exit from TODOs' )
-
-		}
+		cache.set( {
+			[ data.selectedFile ]  : firstAnswers.selectedFile,
+			[ data.showInConsole ] : typeof secondAns.showInConsole == 'boolean' ? secondAns.showInConsole : true,
+		} )
 	
-	} catch ( error ) {
+	},
 
-		console.error( '❌ Error reading the "TODO" folder:', error )
-	
-	}
-
-}
-
-main()
+} )

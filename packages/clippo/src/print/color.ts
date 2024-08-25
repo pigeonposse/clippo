@@ -1,5 +1,5 @@
-import picocolors     from 'picocolors'
 import gradientString from 'gradient-string'
+import picocolors     from 'picocolors'
 
 export const color = picocolors
 

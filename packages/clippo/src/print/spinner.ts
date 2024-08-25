@@ -1,7 +1,9 @@
 
+import { Spinner } from '@topcli/spinner'
+
+import { color } from './color'
+
 import type { ISpinnerOptions } from '@topcli/spinner'
-import { Spinner }              from '@topcli/spinner'
-import { color }                from './color'
 
 type SpinnerEventParams = {
 	instance: Spinner, 
@@ -24,12 +26,12 @@ type SpinnerType = {
  * @param   {ISpinnerOptions} params.opts   - Spinner opts.
  * @param   {Function}        params.on     - Spinner hook. Used for change log.
  * @returns {object}                        - Returns an object with spinner methods.
+ * @example
+ *
  */
 export const spinner = ( params: SpinnerType ) => {
 
-	const defaultSpinnerOpts: ISpinnerOptions = {
-		name : 'line',
-	}
+	const defaultSpinnerOpts: ISpinnerOptions = { name: 'line' }
 	
 	const instance = new Spinner( 
 		params?.opts ? {
@@ -44,6 +46,8 @@ export const spinner = ( params: SpinnerType ) => {
 		 * Start the spinner with provided text.
 		 *
 		 * @param {string} txt - Text to display with spinner.
+		 * @example
+		 *
 		 */
 		start : ( txt: string ) => {
 
@@ -54,9 +58,7 @@ export const spinner = ( params: SpinnerType ) => {
 				prefix : params.prefix,
 			} )
 			else 
-				instance.start( txt, params?.prefix ? {
-					withPrefix : color.blue( params.prefix ) + ' - ',
-				} : undefined )
+				instance.start( txt, params?.prefix ? { withPrefix: color.blue( params.prefix ) + ' - ' } : undefined )
 		
 		},
 
@@ -64,6 +66,8 @@ export const spinner = ( params: SpinnerType ) => {
 		 * Change text of spinner.
 		 *
 		 * @param {string} txt - New text for spinner.
+		 * @example
+		 *
 		 */
 		update : ( txt: string ) => {
 
@@ -82,6 +86,8 @@ export const spinner = ( params: SpinnerType ) => {
 		 * Succeed the spinner with provided text.
 		 *
 		 * @param {string} txt - Text to display when spinner succeeds.
+		 * @example
+		 *
 		 */
 		succeed : ( txt: string ) => {
 
@@ -100,6 +106,8 @@ export const spinner = ( params: SpinnerType ) => {
 		 * Fail the spinner with provided text.
 		 *
 		 * @param {string} txt - Text to display when spinner fails.
+		 * @example
+		 *
 		 */
 		failed : ( txt: string ) => {
 
@@ -118,6 +126,8 @@ export const spinner = ( params: SpinnerType ) => {
 		 * Reset spinner.
 		 *
 		 * @returns {void} - Void.
+		 * @example
+		 *
 		 */
 		reset : () => Spinner.reset(),
 

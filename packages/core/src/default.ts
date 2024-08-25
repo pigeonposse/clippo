@@ -1,11 +1,13 @@
+import i18n from '@clippo/i18n'
+
+import { locales }           from './locales'
 import { defaultCustomOpts } from './types'
+
 import type {
 	CreateCorePlugin, 
 	ClippoExtendsArgs, 
 } from './types'
-import { locales }       from './locales'
 import type { I18nOpts } from '@clippo/i18n'
-import i18n              from '@clippo/i18n'
 
 // export const createCorePlugin: CreateCorePlugin<'i18n', I18nOpts> = ( ) => ( {
 export const createCorePlugin: CreateCorePlugin<'i18n', I18nOpts> = ( ) => ( {
@@ -27,14 +29,8 @@ export const defaultArgs: ClippoExtendsArgs = {
 		argv        : process.argv,
 		defaultOpts : Object.values( defaultCustomOpts ),
 		updater     : true,
-		i18n        : {
-			locales,
-		},
-		customTypes : {
-			url : {
-				validate : ( v: unknown ) => typeof v === 'string' && ( v.startsWith( 'https://' ) || v.startsWith( 'https://' ) ),
-			},
-		},
+		i18n        : { locales },
+		customTypes : { url: { validate: ( v: unknown ) => typeof v === 'string' && ( v.startsWith( 'https://' ) || v.startsWith( 'https://' ) ) } },
 		// customTypess : {
 		// 	url : ( v: unknown ) => typeof v === 'string' && ( v.startsWith( 'https://' ) || v.startsWith( 'https://' ) ),
 		// },
@@ -44,11 +40,15 @@ export const defaultArgs: ClippoExtendsArgs = {
 			value  : '{{name}}',
 			font   : 'ANSI Regular',
 			colors : [
-				'red', 'green', 'blue', 
+				'red',
+				'green',
+				'blue', 
 			],
 		},
 		styles : {
-			title : ( { font, value, colors, styles } ) => {
+			title : ( {
+				font, value, colors, styles, 
+			} ) => {
 				
 				if( value && font && colors ) 
 					return '\n' + styles.gradient( styles.font( `${value.toUpperCase()}`, font ), colors ) + '\n'
@@ -61,17 +61,39 @@ export const defaultArgs: ClippoExtendsArgs = {
 				return ''
 				
 			},
-			desc         : ( { value, styles } ) => styles.color.white.dim( value ),
-			link         : ( { value, styles } ) => styles.color.white.dim.italic.underline( value ),
-			sectionTitle : ( { value, styles } ) => styles.color.white.bold( value ),
-			cliName      : ( { value, styles } ) => styles.color.magenta( value ),
-			cmd          : ( { value, styles } ) => styles.color.blue( value ),
-			opt          : ( { value, styles } ) => styles.color.green( value ),
-			type         : ( { value, styles } ) => styles.color.white( value ),
-			required     : ( { value, styles } ) => styles.color.red( value ),
-			choices      : ( { value, styles } ) => styles.color.white.dim( value ),
-			example      : ( { value, styles } ) => styles.color.white( value ),
-			default      : ( { value, styles } ) => styles.color.white.dim( value ),
+			desc : ( {
+				value, styles, 
+			} ) => styles.color.white.dim( value ),
+			link : ( {
+				value, styles, 
+			} ) => styles.color.white.dim.italic.underline( value ),
+			sectionTitle : ( {
+				value, styles, 
+			} ) => styles.color.white.bold( value ),
+			cliName : ( {
+				value, styles, 
+			} ) => styles.color.magenta( value ),
+			cmd : ( {
+				value, styles, 
+			} ) => styles.color.blue( value ),
+			opt : ( {
+				value, styles, 
+			} ) => styles.color.green( value ),
+			type : ( {
+				value, styles, 
+			} ) => styles.color.white( value ),
+			required : ( {
+				value, styles, 
+			} ) => styles.color.red( value ),
+			choices : ( {
+				value, styles, 
+			} ) => styles.color.white.dim( value ),
+			example : ( {
+				value, styles, 
+			} ) => styles.color.white( value ),
+			default : ( {
+				value, styles, 
+			} ) => styles.color.white.dim( value ),
 		},
 	},
 }

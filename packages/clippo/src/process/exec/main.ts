@@ -1,12 +1,15 @@
+import { spawn } from 'node:child_process'
+
 import type { ChildProcessExecuteParams }      from './types'
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
-import { spawn }                               from 'node:child_process'
 
 /**
  * Executes a child process with the specified command.
  *
  * @param   {ChildProcessExecuteParams} params - Parameters for executing the child process.
  * @returns {Promise<void>}                    - A promise that resolves when the child process completes successfully or rejects if there is an error.
+ * @example
+ *
  */
 export default async function execute( {
 	cmd, 
@@ -20,7 +23,9 @@ export default async function execute( {
 		const childProcess: ChildProcessWithoutNullStreams = spawn( cmd, {
 			shell : true,
 			stdio : [
-				'inherit', 'pipe', 'pipe',
+				'inherit',
+				'pipe',
+				'pipe',
 			], 
 		} )
 		// @ts-ignore

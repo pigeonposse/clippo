@@ -3,10 +3,13 @@
  *
  * @description Add configuration function.
  */
-import type { ClippoMiddleware } from './types'
-import deepmerge                 from 'deepmerge'
+import deepmerge from 'deepmerge'
 
-export const configMiddleware = async ( { cmds, opts, name, utils, params }: ClippoMiddleware ) => {
+import type { ClippoMiddleware } from './types'
+
+export const configMiddleware = async ( {
+	cmds, opts, name, utils, params, 
+}: ClippoMiddleware ) => {
 
 	let config: object = {},
 		commands: object = {}, 
@@ -14,9 +17,11 @@ export const configMiddleware = async ( { cmds, opts, name, utils, params }: Cli
 	
 	if( !params.config?.defaultOpts?.includes( 'config' ) ) return opts
 	
-	const { fs, log } = utils
-	const cmdsKey     = 'cmds'
-	const isObject    = ( v: unknown ) => typeof v === 'object' && v !== null && !Array.isArray( v )
+	const {
+		fs, log, 
+	} = utils
+	const cmdsKey  = 'cmds'
+	const isObject = ( v: unknown ) => typeof v === 'object' && v !== null && !Array.isArray( v )
 	
 	/**
 	 * ****************************************************************************.
@@ -32,15 +37,12 @@ export const configMiddleware = async ( { cmds, opts, name, utils, params }: Cli
 			// package first
 			const pkgConfig = await fs.getObjectFrom( './package.json' ) as Record<string, unknown>
 
-			if( name in pkgConfig && isObject( pkgConfig[name] ) ) 
-				config = pkgConfig[name] as object
+			if( name in pkgConfig && isObject( pkgConfig[ name ] ) ) 
+				config = pkgConfig[ name ] as object
 
 			// get config files after. In ./[name](.yaml|.yml|json|toml)
-			const fileConfig = await fs.getObjectFromPath( '.',name )
-			config           = deepmerge.all( [
-				config,
-				fileConfig, 
-			] )
+			const fileConfig = await fs.getObjectFromPath( '.', name )
+			config           = deepmerge.all( [ config, fileConfig ] )
 		
 		}catch( e ){
 	
@@ -64,9 +66,11 @@ export const configMiddleware = async ( { cmds, opts, name, utils, params }: Cli
 
 		if( cmdsKey in c ){
 
-			const { [cmdsKey]: k, ...o } = c
-			commands                     = isObject( k ) ? k as object : commands
-			options                      = o
+			const {
+				[ cmdsKey ]: k, ...o 
+			} = c
+			commands = isObject( k ) ? k as object : commands
+			options  = o
 		
 		}else
 			options = config
@@ -90,10 +94,10 @@ export const configMiddleware = async ( { cmds, opts, name, utils, params }: Cli
 			for ( const specificCmd of specificCmds ){
 
 				// @ts-ignore
-				if( specificCmd in config && isObject( config[specificCmd] ) ){
+				if( specificCmd in config && isObject( config[ specificCmd ] ) ){
 
 					// @ts-ignore
-					const args = getArgs( config[specificCmd] )
+					const args = getArgs( config[ specificCmd ] )
 					options    = {
 						...args.options, 
 						...options, 
@@ -123,7 +127,8 @@ export const configMiddleware = async ( { cmds, opts, name, utils, params }: Cli
 
 		}
 		return {
-			options, commands,
+			options,
+			commands,
 		}
 	
 	}

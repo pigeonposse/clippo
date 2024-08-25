@@ -33,6 +33,7 @@ plugins:
   - promise
   - jsonc
   - yaml
+  - canonical
 extends:
   - eslint:recommended
   - plugin:promise/recommended
@@ -44,10 +45,6 @@ extends:
 # @see https://eslint.org/docs/latest/rules/
 # #############################################################################
 rules:
-  align-import/align-import: error
-  align-assignments/align-assignments:
-    - error
-    - requiresOnly: false
   camelcase: warn
   key-spacing:
     - error
@@ -65,6 +62,12 @@ rules:
   comma-dangle:
     - error
     - always-multiline
+  comma-spacing:
+    - error
+    - after: true 
+  computed-property-spacing:
+    - error
+    - always
   no-multiple-empty-lines:
     - error
     - max: 1
@@ -84,19 +87,29 @@ rules:
     - always
   object-curly-newline:
     - error
-    - ObjectPattern:
-        multiline: true
-      ObjectExpression:
-        minProperties: 1
-      ImportDeclaration:
-        multiline: false
-        minProperties: 2
+    - multiline: true
+      minProperties: 2
+    #   consistent: true
+    # - ObjectPattern:
+    #     multiline: true
+    #   ObjectExpression:
+    #     minProperties: 1
+    #   ImportDeclaration:
+    #     multiline: true
+    #     minProperties: 2
+  object-property-newline:
+    - error
   object-curly-spacing:
     - error
     - always
+  array-element-newline:
+    - error
+    # - multiline: true
+    - minItems: 3
   array-bracket-newline:
     - error
-    - minItems: 1
+    # - multiline: true
+    - minItems: 3
   array-bracket-spacing:
     - error
     - always
@@ -106,11 +119,12 @@ rules:
   semi:
     - error
     - never
-  import/no-unresolved: off
+  operator-linebreak:
+    - error
+    - before
   arrow-parens:
     - error
     - as-needed
-  align-import/trim-import: error
   default-case-last: error
   indent:
     - error
@@ -129,6 +143,41 @@ rules:
         ImportDeclaration: true
         VariableDeclarator: true
         AssignmentExpression: true
+  # IMPORT.
+  # #############################################################################
+  import/no-unresolved: off
+  import/newline-after-import:
+    - error
+  # https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
+  import/order:
+    - error
+    - groups:
+      - [
+          "builtin", "external"
+        ]
+      - [
+          "internal", "parent", "sibling", "index", "object",
+        ]
+      - [
+          "type"
+        ]
+      pathGroups: []
+      pathGroupsExcludedImportTypes: []
+      alphabetize:
+        order: asc
+        caseInsensitive: true
+      newlines-between: "always"
+      warnOnUnassignedImports: true
+  # ALIGN.
+  # #############################################################################
+  align-import/align-import: error
+  align-import/trim-import: error
+  align-assignments/align-assignments:
+    - error
+    - requiresOnly: false
+  canonical/import-specifier-newline: error
+  canonical/export-specifier-newline: error
+
 
 # #############################################################################
 # IGNORE FILES.
@@ -373,5 +422,8 @@ overrides:
       - "package-json"
     rules: 
       'package-json/valid-repository-directory': off
+      package-json/sort-collections: 
+         - error
+         - ["devDependencies", "dependencies", "peerDependencies", "config"]
 
 # #############################################################################

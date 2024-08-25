@@ -4,23 +4,15 @@
  * @description Todo.
  */
 
-import { generateASCII } from '../core/main.mjs'
-export const mark = pkg => {
+import { generateASCII } from '@clippo/config/core'
 
-	const data       = pkg.data
-	const author     = data.author.name 
-	const authorLink = data.author.url 
-	const repoUrl    = data.repository.url 
-	const name = data.extra.productName.toUpperCase()
-	// const version    = data.version ? data.version : 'UNDEFINDED'
-
-	return `${generateASCII( name )}                    
+export const mark = pkg => `${generateASCII( pkg.extra.productName.toUpperCase() )}                    
                                                 
-REPOSITORY: ${repoUrl}
+REPOSITORY: ${pkg.repository.url }
 AUTHORS: 
-	- ${author} (${authorLink})
+	- ${pkg.author.name} (${pkg.author.url})
 
-BY ${data.extra.collective.name} 🐦🌈
+BY ${pkg.extra.collective.name} 🐦🌈
 ` 
 
-}
+export const markMD = pkg => `<!--\n${mark( pkg )}\n-->`

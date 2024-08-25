@@ -10,11 +10,12 @@
 	},
 	"type": "module",
 	"scripts": {
-		"build": "pnpm docs:copy && vitepress build src --force && pnpm docs:rm",
 		"dev": "vitepress dev src",
-		"docs:copy": "node src/copy-docs.js",
-		"docs:plugins": "typedoc",
-		"docs:rm": "node src/copy-docs.js --rm-dest",
+		"build": "pnpm run --sequential \"/^build:.*/\"",
+		"build:copy-docs": "node .dev/copy-docs.js",
+		"build:utils": "node ../../.dev/typedoc/main.mjs",
+		"build:web": "vitepress build src --force",
+		"build:rm-docs": "node .dev/copy-docs.js --rm-dest",
 		"preview": "vitepress preview src"
 	},
 	"dependencies": {
@@ -22,8 +23,8 @@
 	},
 	"devDependencies": {
 		"@clippo/config": "workspace:*",
-		"medium-zoom": "^1.1.0",
-		"vitepress": "1.0.0-rc.24",
-		"vue": "3.3.7"
+		"medium-zoom": "1.1.0",
+		"vitepress": "1.3.3",
+		"vue": "3.4.38"
 	}
 }
